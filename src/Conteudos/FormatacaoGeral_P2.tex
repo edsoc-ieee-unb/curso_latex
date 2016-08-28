@@ -1,0 +1,581 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%% AULA 02 %%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%% FINALIDADE %%%%%%%%%%%%%%%%%%%%%%%%%%
+%			Demonstrar comandos sobre formatação			%
+%			de tabelas e figuras, além de variações			%
+%			de listagem.									%
+%%%%%%%%%%%%%%%%%%%%%%% FIM FINALIDADE %%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 01 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Itens}
+	\begin{Codigo}{Exemplo de itens com marcador}
+		\LCmdArg{begin}{itemize} \n
+			\LCmd{item} Primeiro item; \n
+				\LCmdArg{begin}{itemize} \n
+					\LCmd{item} Sub-item; \n
+					\LCmd{item Outro} sub-item; \n
+				\LCmdArg{end}{itemize} \n
+			\LCmd{item} Último item. \n
+		\LCmdArg{end}{itemize}
+	\end{Codigo}
+
+	\pause
+	Produz:
+	
+		\begin{Resultado}{}
+			\begin{itemize}
+			\item Primeiro item;
+				\begin{itemize}
+					\item Sub-item;
+					\item Outro sub-item;
+				\end{itemize}
+			\item Último item.
+			\end{itemize}
+		\end{Resultado}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 01 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 02 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Enumerados}
+	\begin{Codigo}{Exemplo com numeração}
+		\LCmdArg{begin}{enumerate}\n
+			\LCmd{item} Primeiro;\n
+			\LCmd{item} Segundo; \n
+				\LCmdArg{begin}{enumerate} \n
+					\LCmd{item} Sub-item; \n
+					\LCmd{item} Sub-item. \n
+			\LCmdArg{end}{enumerate} \n
+		\LCmdArg{end}{enumerate}
+	\end{Codigo}
+
+\pause
+	Produz:
+
+	\begin{Resultado}{}
+		\begin{enumerate}
+			\item Primeiro;
+			\item Segundo;
+				\begin{enumerate}
+					\item Sub-item;
+					\item Sub-item.
+				\end{enumerate}
+		\end{enumerate}
+	\end{Resultado}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 02 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 03 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Descrições}
+	\begin{Codigo}{Exemplo de descrição}
+		\LCmdArg{begin}{description} \n
+			\LCmd{item} [Windows] Sistema operacional da Microsoft; \n
+			\LCmd{item} [MacOS] Sistema operacional da Apple; \n
+			\LCmd{item} [Linux] Sistema operacional livre. \n
+		\LCmdArg{end}{description}
+	\end{Codigo}
+
+\pause
+	Produz:
+
+	\begin{Resultado}{}
+		\begin{description}
+			\item [Windows] Sistema operacional da Microsoft;
+			\item [MacOS] Sistema operacional da Apple;
+			\item [Linux] Sistema operacional livre.
+		\end{description}
+	\end{Resultado}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 03 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 04 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Construido Tabelas}
+	O ambiente \Lenv{tabular} é usado para definir tabelas em modo texto (que não contenham nenhuma ou pouca matemática).
+	
+	\pause
+
+	\begin{Codigo}{Sintaxe}
+		\LCmdArg{begin}{tabular}\Larg{colunas}
+			linhas \\
+		\LCmdArg{end}{tabular}
+
+		\LCmdArg{begin}{tabular*}\Larg{tamanho}\LOptArg[pos]{colunas}
+			linhas \\
+		\LCmdArg{end}{tabular*}
+	\end{Codigo}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 04 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 05 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Ambiente \Lenv{tabular} - 0}
+	\begin{description}
+		\item [pos] Posicionamento vertical em relação ao texto (Detalhado melhor aqui) % Link?
+		\pause
+		\item [tamanho] Este argumento se aplica apenas para o ambiente %verb-tabular*-;
+		\pause
+		\item [colunas] Comando de formatação das colunas. Aonde é definido a posição do texto em cada coluna bem como as bordas laterais e espaçamentos.
+	\end{description}
+	
+	\begin{description}
+		\pause	
+		\item [l] Conteúdo da coluna alinhado a esquerda
+		\pause
+		\item [c] Conteúdo da coluna alinhado ao centro
+		\pause
+		\item [r] Conteúdo da coluna alinhado a direita
+		\pause
+		\item [|] Desenha uma linha vertical
+		\pause
+		\item [||] Desenha duas linhas verticais , uma seguida da outra
+	\end{description}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 05 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 06 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Ambiente \Lenv{tabular} - 1}
+	\begin{description}
+		\item [p\{wd\}] O texto na coluna é inserido em linha com largura \emph{wd} e a primeira linha é alinhada com as outras colunas
+		\pause
+		\item [@\{texto\}] Insere em cada linha o texto ou expressão
+		\pause
+		\item [Linhas] Cada linha deve terminar com \string\ \string\. Dentro da linha as celulas de cada coluna são separadas por \& conforme da definido antes
+		\pause
+		\item [\string\hline] Este comando desenha um traço horizontal depois da linha da coluna anterior e antes da subsequente
+		
+	\end{description}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 06 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 07 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Ambiente \Lenv{tabular} - 2}
+	\begin{Codigo}{Exemplo}
+		\LCmdArg{begin}{tabular}\Larg{p\{3cm\}|c|r}
+			\LCmd{hline}\n
+			Elemento   \&  Porcentagem \& Fator \string\\ \n
+			\string\hline\string\hline \n
+			Ferro      \&  10          \& 3     \string\\ \string\hline \n
+			Cloro      \&  33          \& 7     \string\\ \string\hline \n
+			Oxigênio   \&  51          \& 1     \string\\ \string\hline \n
+		\LCmdArg{end}{tabular}
+	\end{Codigo}
+
+\pause
+	Produz:
+	
+	\begin{Resultado}{}
+		\begin{center}
+			\begin{tabular}{p{3cm}|c|r}
+				\hline
+				Elemento    &  Porcentagem  & Fator \\ \hline \hline
+				Ferro   &  10   & 3     \\ \hline
+				Cloro   &  33   & 7     \\ \hline
+				Oxigênio  &  51   & 1 \\ \hline
+			\end{tabular}		
+		\end{center}
+	\end{Resultado}
+
+	%\begin{Observacao}{Observação} tu viu a "!" que apareceu na tabela?
+	%	As letras ``l'', ``c'' e ``r'' referem-se ao posicionamento do conteúdo nas colunas da tabela.
+	%\end{Observacao}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 07 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 08 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Ambiente \Lenv{tabular} - 3}
+	\begin{itemize}
+		\item \texttt{@\{\}} na especificação do comando tabular resulta em uma divisão com espaçamento zero. Podemos usar para alinhar números pelo ponto decimal;
+		\pause
+		\item \LCmd{multicolumn} serve para juntar colunas da tabela.
+	\end{itemize}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 08 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 09 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Ambiente \Lenv{tabular} - 4}
+	\begin{Codigo}{Exemplo}
+		\LCmdArg{begin}{tabular}\Larg{c r @\{,\} l}\n
+			Expressão \& \LCmd{multicolumn}\Larg{2}\Larg{c}\Larg{Valor} \string\\ \string\hline\n
+			\$\string\pi\$ \& 3 \& 1415 \string\\ \n
+			\$\string\pi\string^2\$ \& 9 \& 869 \string\\ \n
+			\$\string\pi\string^3\$ \& 31 \& 0062 \n
+		\LCmdArg{end}{tabular}
+	\end{Codigo}
+	\pause
+	Produz:
+
+	\begin{Resultado}{}
+		\begin{tabular}{c r @{,} l}
+			Expressão & \multicolumn{2}{c}{Valor} \\ \hline
+			$\pi$ & 3 & 1415 \\
+			$\pi^2$ & 9 & 869 \\
+			$\pi^3$ & 31 & 0062
+		\end{tabular}
+	\end{Resultado}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 09 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 10 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Referências cruzadas - 0}
+	\begin{Resultado}{Referenciando seções, subseções, fórmulas, etc.}
+		\begin{itemize}
+			\item Para marcar: \LCmdArg{label}{marca};
+			\pause
+			\item Para referenciar: \LCmdArg{ref}{marca};
+			\pause
+			\item Para referenciar trocando o nome do link:
+			\LCmdOptArg{hyperref}{marca}{texto}
+			\pause
+			\item Referenciando a página: \LCmdArg{pageref}{marca}.
+		\end{itemize}
+	\end{Resultado}
+
+    \pause
+	\begin{Observacao}{Observação}
+		As referências são armazenadas no arquivo .AUX e por isto pode ser necessária mais de uma compilação para resolver as pendências.
+	\end{Observacao}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 10 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 11 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Referências cruzadas - 1}
+	\begin{Codigo}{Exemplo}
+		\LCmdArg{begin}{equation}\n
+		\LCmdArg{label}{eqn:integral}\n
+		\string\int\ x\string\,\string\mathrm\{d\}x\n
+		\LCmdArg{end}{equation}\n
+		A equação~(\LCmdArg{ref}{eqn:integral}) define \string\dots
+	\end{Codigo}
+
+    \pause
+	Produz:
+	
+	\begin{Resultado}{}
+		\begin{equation}
+			\label{eqn:integral}
+			\int x\,\mathrm{d}x
+		\end{equation}
+		A equação~(\ref{eqn:integral}) define \dots
+	\end{Resultado}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 11 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 12 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Citações}
+	\begin{Codigo}{Exemplo}
+		Bilbo costumava dizer:\n
+		\LCmdArg{begin}{quote}\n
+			É perigoso sair porta afora, Frodo. Você pisa na Estrada, e, se não controlar seus pés, não há como saber até onde você pode ser levado \ldots\n
+		\LCmdArg{end}{quote}
+	\end{Codigo}
+
+    \pause
+	Produz:
+
+	\begin{Resultado}{}
+		Bilbo costumava dizer:
+		\begin{quote}\normalfont
+			É perigoso sair porta afora, Frodo. Você pisa na Estrada, e, se não controlar seus pés, não há como saber até onde você pode ser levado \ldots
+		\end{quote}
+	\end{Resultado}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 12 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 13 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Versos - 0}
+	\begin{Codigo}{Exemplo de versos}
+		Esta é uma poesia sem sentido retirada de
+		`{}`Alice Através do Espelho'{}':
+		\nn
+		\LCmdArg{begin}{center}\n
+			\LCmdArg{textbf}{Pargarávio}\n
+		\LCmdArg{end}{center}\n
+		\LCmdArg{begin}{verse}\n
+			Solumbrava, e os lubriciosos touvos \string\\ \n
+			Em vertigiros persondavam as verdentes; \string\\ \n
+			Trisciturnos calavam-se os gaiolouvos \string\\ \n
+			E os porverdidos estriguilavam fientes.\n
+		\LCmdArg{end}{verse}
+	\end{Codigo}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 13 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 14 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Versos - 1}
+	Produz:
+
+	\begin{Resultado}{}
+		Esta é uma poesia sem sentido retirada de
+		``Alice Através do Espelho'':
+		\begin{center}
+			\textbf{Pargarávio}
+		\end{center}
+		\begin{verse}
+			Solumbrava, e os lubriciosos touvos \\
+			Em vertigiros persondavam as verdentes; \\
+			Trisciturnos calavam-se os gaiolouvos \\
+			E os porverdidos estriguilavam fientes.
+		\end{verse}
+	\end{Resultado}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 14 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 15 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Figuras e tabelas - 0}
+	São \emph{corpos flutuantes} obtidos usando-se os ambientes:
+	\begin{Codigo}{Figuras e Tabelas}
+		\LCmdArg{begin}{figure}\Lopt[especificação] \n
+			... \n
+			\LCmdArg{caption}{texto} \n
+		\LCmdArg{end}{figure} \n
+		e \n
+		\LCmdArg{begin}{table}\Lopt[especificação] \n
+			... \n
+			\LCmdArg{caption}{texto} \n
+		\LCmdArg{end}{table}
+	\end{Codigo}
+
+	\begin{Observacao}{Observação}
+		\LCmdArg{caption}{\dots} serve para incluir uma legenda.
+	\end{Observacao}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 15 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 16 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Figuras e tabelas - 1}
+	A especificação pode ser um ou mais dos seguintes (não será necessariamente seguido pelo \LaTeX):
+	\pause
+	\begin{description}
+		\item [h] aqui;
+		\pause
+		\item [t] alto da página;
+		\pause
+		\item [b] embaixo da página;
+        \pause
+		\item [p] página especial;
+		\pause
+		\item [!] não considera alguns parâmetros internos.
+	\end{description}
+
+    \pause
+	\begin{Observacao}{}
+		A ordem em que são usados é relevante -- maior prioridade é dada ao primeiro e menor ao último.
+	\end{Observacao}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 16 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 17 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Figuras e tabelas - 2}
+	\fontsize{10}{11}\selectfont
+	\begin{Codigo}{Exemplo}
+		\LCmdArg{begin}{table}\Lopt[!tp] \n
+			\LCmdArg{caption}{Tabela sem sentido} 
+			\LCmdArg{label}{tab:semsentido} \n
+			\LCmd{centering} \n
+			\LCmdArg{begin}{tabular}\Larg{l|l} \string\hline \n
+				Parâmetro \& Valor \string\\ \string\hline\string\hline \n
+				XYZ \& 123 \string\\ \n
+				ABC \& 321 \string\\ \string\hline \n
+			\LCmdArg{end}{tabular} \n
+		\LCmdArg{end}{table} \n
+		A Tabela\string~\LCmdArg{ref}{tab:semsentido} apresenta \string\dots
+	\end{Codigo}
+
+    \pause
+	\begin{Observacao}{Observações}
+		\begin{itemize}
+			\item \texttt{\string\centering} serve para centralizar o tabular;
+			\item comando \texttt{\string\caption\{\dots\}} usado acima do tabular devido a ABNT;
+			\item comando \texttt{\string\label\{\dots\}} deve ser usado após o comando \texttt{\string\caption\{\dots\}}.
+		\end{itemize}
+	\end{Observacao}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 17 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 18 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Figuras e tabelas - 3}
+	\fontsize{10}{11}\selectfont
+	Produz:
+	\begin{Resultado}{}
+		\begin{table}
+			\label{tab:semsentido}
+			\caption{Tabela sem sentido}% 
+			\centering
+			\begin{tabular}{l|l} \hline
+				Parâmetro & Valor \\ \hline\hline
+				XYZ & 123 \\
+				ABC & 321 \\ \hline
+			\end{tabular}
+		\end{table}
+		A Tabela~\ref{tab:semsentido}~apresenta \ldots
+	\end{Resultado}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 18 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 19 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Importando imagens - 0}
+	O programa compilador \prog{pdftex}, usado nas atuais versões de \LaTeX{}, pode importar imagens nos formatos: JPG, PNG, PDF, MPS e EPS.
+	\pause
+	\begin{itemize}
+		\item \LCmdArg{usepackage}{graphicx};
+		\pause
+		\item \LOA includegraphics[especificação]{nome do arquivo sem extensão};
+		\item[] Especificação:
+			\begin{description}
+			    \pause
+				\item [width] largura;
+				\pause
+				\item [height] altura;
+				\pause
+				\item [angle] rotaciona a figura;
+			\end{description}
+	\end{itemize}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 19 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 20 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Importando imagens - 1}
+	\begin{Codigo}{Exemplo}
+		\LCmdArg{documentclass}{article}\n
+		...\n
+		\LCmdArg{usepackage}{graphicx}\n
+		\LCmdArg{begin}{document}\n
+			...\n
+			\LCmdArg{begin}{figure}\LOpt{!tp}\n
+				\LCmd{centering}\n
+				\LOA includegraphics[width=0.6\LCmd{textwidth}]{<nome imagem>}\n
+				\LCmdArg{caption}{\dots}\LCmdArg{label}{chave}\n
+			\LCmdArg{end}{figure}\n
+			...\n
+		\LCmdArg{end}{document}
+	\end{Codigo}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 20 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 21 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Produzindo sumários}
+	Estes podem ser obtidos pelos comandos: 
+	\begin{itemize}
+	    \pause
+		\item \LCmd{tableofcontents},
+		\pause
+		\item \LCmd{listoffigures},
+		\pause
+		\item \LCmd{listoftables}.
+	\end{itemize}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 21 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 22 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Estrutura geral}
+	\begin{Codigo}{Estrutura de um artigo com sumários}
+		\LCmdArg{documentclass}{article}\n
+		...\n
+		\LCmdArg{begin}{document}\n
+			\LCmd{maketitle}\n
+			\LCmd{tableofcontents}\n
+			\LCmd{listoffigures}\n
+			\LCmd{listoftables}\n
+			\LCmdArg{section}{Introdução}\n
+			...\n
+		\LCmdArg{end}{document}
+	\end{Codigo}
+
+
+    \pause
+	\begin{Observacao}{Observação}
+		São produzidos os arquivos .TOC, .LOF e .LOT. Posteriormente eles podem ser editados.
+	\end{Observacao}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 22 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 23 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Cores - 0}
+	Para usar cores é necessário o uso de alguns pacotes adicionais:
+	\pause
+	\begin{Codigo}{}
+		\LCmdArg{usepackage}{color}\n
+		ou\n
+		\LCmdOptArg{usepackage}{usenames,dvipsnames,svgnames,table}{xcolor}
+	\end{Codigo}
+	
+	\pause
+
+	Assim podemos definir algumas cores básicas como \textcolor{blue}{azul},\textcolor{green}{verde} ou até  mesmo \textcolor{pink}{Rosa} para os elementos do \LaTeX
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 23 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 24 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Cores - 1}
+	Assim como muitos comandos, podemos indicar as cores de duas formas básicas:
+	\pause
+	\begin{Codigo}{}
+		\LCmdArg{textcolor}{nome-cor}\Larg{algum texto}\n ou\n \Larg{\LCmdArg{color}{nome-cor} algum texto}.
+	\end{Codigo}
+
+    \pause
+	Caso não tenha a cor exata definida pode-se ainda definir uma cor personalizada usando o comando \footnote{Mais detalhes em \url{http://www.las.ic.unicamp.br/pub/ctan/macros/latex/contrib/xcolor/xcolor.pdf}}:
+	
+	\pause
+	\begin{Codigo}{}
+		\LCmdArg{definecolor}{''name''}\Larg{''model''}\Larg{''color-spec''}
+	\end{Codigo}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 24 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 25 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Modelos de Cores - 0}
+	\begin{Observacao}{}
+		\begin{center}
+			\begin{tabular}{cp{3cm}cl}
+				\textbf{Modelo} & \textbf{Descrição} & Variação Paramentro\\
+				\hline
+				gray & Tons de cinza & 0-1 \\
+				RGB & Vermelho, Verde, Azul & 0-255 \\
+				HTML & Vermelho, Verde, Azul & 00-FF \\
+				cmyk & Ciano, Magenta, Amarelo e Preto & 0-1 \\
+			\end{tabular}
+		\end{center}
+	\end{Observacao}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 25 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 26 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Modelos de Cores - 1}
+	\begin{Observacao}{}
+		\begin{center}
+			\begin{tabular}{cl}
+				\textbf{Modelo} & \textbf{Exemplo}\\
+				\hline
+				gray & \LCmdArg{definecolor}{light-gray}\Larg{gray}\Larg{0.95}\\
+				rgb & \LCmdArg{definecolor}{orange}\Larg{rgb}\Larg{1,0.5,0}\\
+				RGB & \LCmdArg{definecolor}{orange}\Larg{rgb}\Larg{255,127,0}\\
+				HTML & \LCmdArg{definecolor}{orange}\Larg{rgb}\Larg{FF7F00}\\
+				cmyk & \LCmdArg{definecolor}{orange}\Larg{cmyk}\Larg{0,0.5,1.0}\\
+			\end{tabular}
+		\end{center}
+	\end{Observacao}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 26 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 27 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Modos do \TeX}
+	\begin{description}
+	    \pause
+		\item [Modo parágrafo] Divide texto em linhas, parágrafos e páginas; é o modo normal do \TeX;
+		\pause
+		\item [Modo LR] Descarrega os tipos sem dividir texto; obtido usando-se \LCmdArg{mbox}{} (\LCmd{mbox} pode ser usado quando não desejamos que uma palavra seja dividida em duas linhas/páginas, por exemplo, \LCmdArg{mbox}{555-1234});
+		\pause
+		\item [Modo matemático] Para produzir fórmulas matemáticas:
+		\pause
+			\begin{Codigo}{}
+				\texttt{\bs(\dots\bs)}\n
+				\texttt{\$\dots\$}\n
+				\LCmdArg{begin}{displaymath} \dots \LCmdArg{end}{displaymath}\n
+				\texttt{\bs\ls\dots\bs\rs}\n
+				\LCmdArg{begin}{equation} \dots \LCmdArg{end}{equation}\n
+				\LCmdArg{begin}{eqnarray} \dots \LCmdArg{end}{eqnarray}.
+			\end{Codigo}
+	\end{description}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 27 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% FIM AULA 02 %%%%%%%%%%%%%%%%%%%%%%

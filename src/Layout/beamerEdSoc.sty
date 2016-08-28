@@ -1,0 +1,272 @@
+
+%%%%%%%%%%% INFORMAÇÕES GERAIS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Direitos Autorais de 2016 por Rodrigo Guimarães <rodrigofegui@gmail.com>
+%
+% Este arquivo pode ser distribuído e/ou modificado
+%
+% 1. sob a Licença Pública do Projeto LaTeX e/ou
+% 2. sob a Licença Pública GNU.
+%
+% Consulte o arquivo doc/licenses/LICENSE para mais detalhes.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%% MODO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mode<presentation>
+%%%%%%%%%%% FIM MODO %%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\useinnertheme [shadow=true]{rounded}
+\useoutertheme {infolines}
+\useoutertheme {split}
+%\usecolortheme{beaver}
+\beamertemplatenumberedballsectiontoc
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% INCLUSÃO DE PACOTES %%%%%%%%%%%%%%%%
+% Codificação dos Caracteres: UNICODE
+\usepackage[utf8]{inputenc}
+% Codificação da fonte: Português
+\usepackage[T1]{fontenc}
+% Incremento da qualidade e extensão de
+% símbolos
+\usepackage{lmodern,textcomp}
+% Configuração de linguagem do documento:
+% português e inglês
+%\usepackage[english, brazilian]{babel}
+\usepackage[brazilian]{babel}
+% Incremento de qualidade nas tabelas
+\usepackage{booktabs}
+% Incremento de qualidade nas imagens
+\usepackage{pict2e}[2016/01/05]
+% Facilita o uso de classes autorais e do LaTeX
+%\usepackage{etoolbox}
+% Manipulação de gráficos no documento
+\usepackage{graphicx}
+% Aspectos matemáticos no documento
+\usepackage{amsmath, amssymb, array}
+\usepackage[all]{xy}
+% Código fonte colorido em LaTeX
+%\usepackage{minted}
+%%%%%%%%%%% FIM INCLUSÃO DE PACOTES %%%%%%%%%%%
+
+%%%%%%%%%%% TEMA USADO %%%%%%%%%%%%%%%%%%%%%%%%
+\usetheme {Boadilla}
+% Uso do tema SERIF para a fonte
+\usefonttheme{serif}
+
+
+
+%%%%%%%%%%% CORES LOCAIS %%%%%%%%%%%%%%%%%%%%%%
+\definecolor {azulElectron} {RGB} {10,111,160}
+\definecolor {azulClaroElectron} {RGB} {31,156,217}
+\definecolor {laranjaElectron} {RGB} {241,145,6}
+\definecolor {roxoEduSoc} {RGB} {156, 40, 189}
+\definecolor {roxoClaroEduSoc} {RGB} {234, 196, 245}
+\definecolor {douradoEduSoc} {RGB} {176, 159, 43}
+\definecolor {douradoClaroEduSoc} {RGB} {247, 242, 203}
+\definecolor {vermelhoEduSoc} {RGB} {224, 25, 25}
+\definecolor {vermelhoClaroEduSoc} {RGB} {255, 209, 209}
+%%%%%%%%%%% FIM CORES LOCAIS %%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% DEFINIÇÃO DAS CORES %%%%%%%%%%%%%%%
+%\beamersetaveragebackground{azulClaroElectron!90!white}
+\setbeamercolor {title} {fg=roxoEduSoc}
+%\setbeamercolor {author} {fg=laranjaElectron}
+%\setbeamercolor {frametitle}{fg=black, bg=laranjaElectron}
+\setbeamercolor {frametitle}{fg=roxoEduSoc}
+% Passador de slides, acima do rodapé
+\setbeamercolor {structure}	 {fg = roxoEduSoc}
+\setbeamercolor {section in head/foot}{fg=white,bg=roxoEduSoc}
+\setbeamercolor {subsection in head/foot}{fg=roxoEduSoc, bg=roxoClaroEduSoc}
+
+\setbeamercolor {block title}{fg=white, bg=roxoEduSoc}
+\setbeamercolor {block body}{fg=DarkBlue, bg=roxoClaroEduSoc}
+
+\setbeamercolor {block title example}{fg=white, bg=douradoEduSoc}
+\setbeamercolor {block body example}{fg=black, bg=douradoClaroEduSoc}
+
+\setbeamercolor {block title alerted}{fg=white, bg=vermelhoEduSoc}
+\setbeamercolor {block body alerted}{fg=black, bg=vermelhoClaroEduSoc}
+
+\setbeamercolor{alerted text}{fg=blue!80!black}
+\setbeamercolor{aalerted text}{fg=red}
+\setbeamercolor{LaTeX code}{fg=DarkBlue}%, bg=roxoClaroEduSoc}
+\setbeamercolor{alerted LaTeX code}{fg=DarkRed}%s,bg=douradoClaroEduSoc}
+%%%%%%%%%%% FIM DEFINIÇÃO DAS CORES %%%%%%%%%%%
+
+%%%%%%%%%%% IMAGEM DO PLANO DE FUNDO %%%%%%%%%%
+\usebackgroundtemplate{
+  \centering
+  \includegraphics[width=0.97\paperwidth, height=1.015\paperheight]{Layout/EduSoc1_1}
+}
+%%%%%%%%%%% FIM IMAGEM DO PLANO DE FUNDO %%%%%%
+
+%%%%%%%%%%% RODAPÉ %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Divisão em três campos
+\setbeamertemplate{footline}{
+	\leavevmode%
+	\hbox{%
+	%	Primeiro Campo: Autor e Instituição
+	\begin{beamercolorbox}
+		[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{subsection in head/foot}%
+    	\usebeamerfont{author in head/foot}\insertshortauthor%~~(\insertshortinstitute)
+	\end{beamercolorbox}%
+	%	Segundo Campo: Título
+	\begin{beamercolorbox}
+		[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{section in head/foot}%
+    	\usebeamerfont{title in head/foot}\insertshorttitle
+	\end{beamercolorbox}%
+	%	Terceiro Campo: Data e Página
+	\begin{beamercolorbox}
+		[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{subsection in head/foot}%
+    	\usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+    	\insertframenumber{}~/~\inserttotalframenumber\hspace*{2ex} 
+  	\end{beamercolorbox}
+  }%
+  \vskip0pt%
+}
+%%%%%%%%%%% FIM RODAPÉ %%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% FORMATOS DEFAULT %%%%%%%%%%%%%%%%%%
+% Deixar em negrito, como default
+\setbeamertemplate {frametitle}{\bfseries\insertframetitle}
+\setbeamertemplate {title}{\bfseries\inserttitle}
+\setbeamerfont{block title}{series=\bfseries}
+%%%%%%%%%%% FIM FORMATOS DEFAULT %%%%%%%%%%%%%%
+
+%%%%%%%%%%% COMANDOS ADICIONAIS %%%%%%%%%%%%%%%
+% Quebra de linha simples
+\newcommand{\n}{\newline}
+% Quebra de linha dupla
+\newcommand{\nn}{\newline\null\newline}
+\newcommand{\tab}[1]{\hspace{35pt}\rlap{#1}}
+
+\newcommand<>{\aalert}[1]{\begin{alertenv}#2\usebeamercolor[fg]{aalerted text}#1\end{alertenv}}
+
+\newcommand{\bs}{{\char'134}}% Backslash -> \
+\newcommand{\lb}{{\char'173}}% Left brace -> {
+\newcommand{\rb}{{\char'175}}% Right brace -> }
+\newcommand{\ls}{{\char'133}}% Left bracket -> [
+\newcommand{\rs}{{\char'135}}% Right bracket -> ]
+
+\newcommand<>{\Lsty}[1]{\begin{actionenv}#2\usebeamercolor[fg]{structure}\ttfamily #1\end{actionenv}}
+\let\Lcls\Lsty
+\def\Lopt#1{\LCmd[]{#1}}
+\let\Lenv\Lopt
+\def\LOpt#1{\LCmd[]{\ls#1\rs}}
+\def\LO[#1]{\LCmd[]{\ls#1\rs}}
+
+\def\@inframetitle{}
+\addtobeamertemplate{frametitle}{\def\@inframetitle{pippo}}
+
+\newcommand{\LCmd}[2][\char'134 ]{\begingroup%
+\let\\\bs\let\{\lb\let\}\rb%
+\ifx\@inframetitle\@empty%
+  \usebeamercolor[fg]{LaTeX code}\ttfamily{#1}{#2}%
+\else%
+  \ttfamily{#1}{#2}%
+\fi%
+\endgroup}
+
+\newcommand{\Larg}[1]{\begingroup
+\usebeamercolor[fg]{LaTeX code}\ttfamily\lb{\usebeamercolor[fg]{alerted LaTeX code}{#1}}\rb\endgroup}
+
+\newcommand{\LCmdArg}[2]{\begingroup%
+\let\\\bs\let\{\lb\let\}\rb%
+\usebeamercolor[fg]{LaTeX code}\ttfamily\bs{#1}\lb{\usebeamercolor[fg]{alerted LaTeX code}{#2}}\rb\endgroup}
+
+\newcommand*{\LCmdOptArg}[3]{\begingroup
+\usebeamercolor[fg]{LaTeX code}\ttfamily\bs{#1}\ls{\usebeamercolor[fg]{alerted LaTeX code}{#2}}\rs\lb{\usebeamercolor[fg]{alerted LaTeX code}{#3}}\rb\endgroup}
+
+\def\LOA#1[#2]#3{\LCmdOptArg{#1}{#2}{#3}}
+
+\makeatletter
+\def\LNCOA#1#2{\LCmdArg{#1}{\bs#2}%
+\@ifnextchar[{\LOptArg}{\Larg}}
+
+\def\LOptArg[#1]#2{\begingroup
+\usebeamercolor[fg]{LaTeX code}\ttfamily\ls{\usebeamercolor[fg]{alerted LaTeX code}{#1}}\rs\lb{\usebeamercolor[fg]{alerted LaTeX code}{#2}}\rb\endgroup}
+
+\newcommand{\tbs}{\LCmd{}}% Textual BackSlash
+\newcommand{\tlb}{\LCmd[]{\lb}}% Textual Left Bracket
+\newcommand{\trb}{\LCmd[]{\rb}}% Textual Right Bracket
+\newcommand{\tls}{\LCmd[]{\ls}}% Textual Left Square
+\newcommand{\trs}{\LCmd[]{\rs}}% Textual Right Square
+\newcommand*\prog[1]{\alert{\textsl{#1}}}
+\newcommand*\markup[1]{\textit{\ttfamily#1}}
+
+\makeatletter
+\def\TeX{T\kern-.1667em\lower.5ex\hbox{E}\kern-.125emX\spacefactor\@m}
+
+\def\LaTeX{\csname org@LaTeX\endcsname}
+
+\def\meta#1{$\langle${\normalfont\textit{#1}}$\rangle$}
+
+\def\pallino{\structure{$\bullet$}}
+
+\def\TextSC#1{{\fontsize{9}{11}\selectfont\MakeUppercase{#1}}}
+\let\orgtextsc\textsc
+
+\renewcommand\textsc[1]{%
+\expandafter\ifx\csname\f@encoding/\f@family/\f@series/sc\endcsname\relax
+\TextSC{#1}\else
+\orgtextsc{#1}\fi}
+
+\newlength\CLett
+\newcommand*\capolettera[2]{\par\noindent
+\setbox\z@\hbox{\scalebox{1.35}{\huge#1}}\CLett=\wd\z@%
+\hangindent\CLett\hangafter-2\relax
+\raisebox{-\baselineskip}[0pt][0pt]{\llap{\box\z@\kern1pt}}\textsc{#2}}
+\makeatother
+
+\newtheorem{exe}{Exemplo}
+\newcommand{\titulo}[1]{{\Large \textbf{#1}}}
+
+\renewcommand{\thempfootnote}{\arabic{mpfootnote}}
+
+\makeatletter
+%http://groups.google.com/group/comp.text.tex/msg/7e812e5d6e67fcc5
+\def\convertto#1#2{\strip@pt\dimexpr #2*65536/\number\dimexpr 1#1}
+\makeatother
+
+%%%%%%%%%%% FIM COMANDOS ADICIONAIS %%%%%%%%%%%
+
+
+
+%%%%%%%%%%% AMBIENTES ABSTRATOS %%%%%%%%%%%%%%%
+%	Bloco para escrita de código
+\newenvironment{Codigo}{\begin{block}}{\end{block}}
+%	Bloco para escrita de resultados
+\newenvironment{Resultado}{\begin{exampleblock}}{\end{exampleblock}}
+%	Bloco para escrita de observações
+\newenvironment{Observacao}{\begin{alertblock}}{\end{alertblock}}
+%	
+\newenvironment{lista}
+{\setbeamersize{description width=1em}\description}{\enddescription}
+
+%\newenvironment<>{Codigo}[1][]%
+%{\begin{actionenv}#2%
+%	\setbeamercolor {block title}{fg=white, bg=roxoEduSoc}
+%	\def\insertblocktitle{#1}%
+%	\setbeamercolor {block body}{fg=black, bg=roxoClaroEduSoc}
+%	\renewcommand*{\alert}[1]{{\usebeamercolor[fg]{alerted LaTeX code}##1}}% Alert
+%	\usebeamertemplate{block begin}\hbadness=10000%
+%	\begin{semiverbatim}
+%}%
+%{\end{semiverbatim}%
+%	\usebeamertemplate{block end}
+%\end{actionenv}}
+
+%\newenvironment<>{Resultado}[1][]%
+%{\begin{actionenv}#2%
+%	\def\insertblocktitle{#1}%
+%	\setbeamercolor{block body}{fg=black, bg=douradoClaroEduSoc}
+%	\setbeamercolor{block title}{fg=white, bg=douradoEduSoc}
+%	\newcommand{\fakeind}{\hspace*{1.5em}}
+%	\usebeamertemplate{block begin}\setlength{\parindent}{1.5em}\rmfamily
+%}%
+%{\usebeamertemplate{block end}
+%\end{actionenv}}
+%%%%%%%%%%% FIM AMBIENTES ABSTRATOS %%%%%%%%%%%
+\mode
+<all>

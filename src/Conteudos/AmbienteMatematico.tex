@@ -1,0 +1,1196 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%% AULA 03 %%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%% FINALIDADE %%%%%%%%%%%%%%%%%%%%%%%%%%
+%			Demonstrar comandos sobre formatação			%
+%			de textos com conteúdo matemático				%
+%%%%%%%%%%%%%%%%%%%%%%% FIM FINALIDADE %%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 01 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Comando \LCmd{newcommand} - 0}
+	\begin{itemize}
+	    \pause
+		\item O comando \LCmd{newcommand} é usado para definir novos comandos (macros);
+		\pause
+		\item Sua sintaxe é:
+			\begin{Codigo}{\LCmd{newcommand}}
+				\LNCOA{newcommand}{cmd}[args]{definição}\n
+				ou\n
+				\LNCOA{newcommand}{cmd}{definição}
+			\end{Codigo}
+		\pause
+		\item No primeiro argumento fica o nome do novo comando, o argumento opcional é o número de argumentos do novo comando (numerados a partir de 1) e referenciados com ``\#'' na definição;
+	\end{itemize}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 01 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 02 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Comando \LCmd{newcommand} - 1}
+	\begin{Codigo}{Exemplo}
+		\LNCOA{newcommand}{titulo}[1]{\lb\string\Large \string\textbf\{\#1\}\rb}\n
+		\LCmdArg{titulo}{Meu título} 
+	\end{Codigo}
+
+    \pause
+	Produz:
+	\begin{Resultado}{}
+		\titulo{Meu título}
+	\end{Resultado}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 02 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 03 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Comando \LCmd{newtheorem}}
+    \pause
+	O comando \LCmd{newtheorem} permite definir teoremas, definições, exemplos, etc.
+	
+	\pause
+	\begin{Codigo}{Exemplo}
+		\string\newtheorem\{exe\}\{Exemplo\}\n
+		...\n
+		\LCmdArg{begin}{exe}\n
+			Este é um exemplo.\n
+		\LCmdArg{end}{exe}
+	\end{Codigo}
+
+    \pause
+	Produz:
+
+	\begin{Resultado}{}
+		\textbf{Exemplo 1} \textit{Este é um exemplo.}
+	\end{Resultado}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 03 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 04 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Comando \LCmd{newenvironment} - 0}
+    \pause
+	O comando \LCmd{newenvironment} permite criar novos ambientes, permitindo personalizar uma região aonde terão comandos executados antes e depois.
+
+    \pause
+	\begin{Codigo}{}
+		\LNCOA{newenvironment}{nomeAmbiente}[numArgumentos]{Comandos Antes}\Larg{Comandos Depois}
+	\end{Codigo}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 04 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 05 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Comando \LCmd{newenvironment} - 1}
+	\begin{Codigo}{Exemplo}
+		\LCmdArg{newenvironment}{minhaTabela}
+		\{ \% Comandos executados Antes
+			\LCmdArg{begin}{table}\n
+				\LCmd{centering}\n
+				\LCmdArg{begin}{tabular}\Larg{c r @\{,\} l}\n
+					Expressão \& \LCmd{multicolumn}\Larg{2}\Larg{c}\Larg{Valor} \string\\ \string\hline\n
+		\}\n
+		\{\% Comandos executados depois\n
+			\LCmdArg{end}{tabular}\n
+			\LCmdArg{end}{table}\n
+		\}
+	\end{Codigo}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 05 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 06 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Comando \LCmd{newenvironment} - 2}
+	\begin{Codigo}{Uso do novo Ambiente}
+		\LCmdArg{begin}{minhaTabela}\n
+			\$\string\pi\$ \& 3 \& 1415 \string\\ \n
+			\$\string\pi\string^2\$ \& 9 \& 869 \string\\ \n
+			\$\string\pi\string^3\$ \& 31 \& 0062 \n
+		\LCmdArg{end}{minhaTabela}
+	\end{Codigo}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 06 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 07 %%%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{minhaTabela}
+{% Comandos executados Antes
+	\begin{table}
+		\centering
+		\begin{tabular}{c r @{,}l}
+			Expressão & \multicolumn{2}{c}{Valor} \\ \hline
+}
+{% Comandos executados depois
+		\end{tabular}
+	\end{table}
+}
+
+\begin{frame}{Comando \LCmd{newenvironment} - 3}
+	\begin{Resultado}{Resultado}
+		\begin{minhaTabela}
+			$\pi$ & 3 & 1415 \\
+			$\pi^2$ & 9 & 869 \\
+			$\pi^3$ & 31 & 0062
+		\end{minhaTabela}
+	\end{Resultado}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 07 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 08 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Produzindo textos com matemática}
+	\begin{itemize}
+	    \pause
+		\item \texttt{\$\dots\$} para produzir fórmulas dentro de um parágrafo em linha com o texto;
+		\pause
+		\item \texttt{\bs\ls\dots\bs\rs} para produzir equações destacadas do parágrafo;
+		\pause
+		\item \LCmdArg{begin}{equation}\dots \LCmdArg{label}{marca}\LCmdArg{end}{equation} para produzir uma equação numerada e destacada do parágrafo e poder referencia-la usando \LCmdArg{ref}{marca}.
+	\end{itemize}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 08 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 09 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Exemplos - 0}
+	\begin{Codigo}{Exemplo 1}
+		Tome \$x\$ e adicione \$y\$. Você obterá \$x+y\$. Outra equação importante é a do segundo grau \bs\ls ax\string^2+bx+c=0\bs\rs\ cuja solução é dada pela \string\emph\{Fórmula de Bhaskara\}.
+		\nn
+		Seja, por exemplo, a equação\string~(\LCmdArg{ref}{eqn:exemplo}).\n
+		\LCmdArg{begin}{equation}\n
+			2x\string^2-3x+1=0\n
+			\LCmdArg{label}{eqn:exemplo}\n
+		\LCmdArg{end}{equation}\n
+		Podemos dizer que \$x=1\$ é uma solução da equação.
+	\end{Codigo}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 09 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 10 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Exemplos - 1}
+	\begin{Resultado}{Exemplo 1}
+		Tome $x$ e adicione $y$. Você obterá $x+y$. Outra equação importante é a do segundo grau \[ax^2+bx+c=0\] cuja solução é dada pela \emph{Fórmula de Bhaskara}.
+
+		Seja, por exemplo, a Equação~(\ref{eqn:exemplo}):
+			\begin{equation}
+				\label{eqn:exemplo}
+					2x^2-3x+1=0
+			\end{equation}
+		Podemos dizer que $x=1$ é uma solução da equação.
+	\end{Resultado}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 10 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 11 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Exemplos - 2}
+	\begin{Codigo}{Exemplo 2}
+		\LCmd{TeX}\LCmd{\textvisiblespace} deve ser pronunciado como\n
+		\$\string\tau\string\epsilon\string\chi\$.
+	\end{Codigo}
+	
+	\pause
+	Produz:
+	
+	\begin{Resultado}{}
+		\TeX\ deve ser pronunciado como
+		$\tau\epsilon\chi$.
+	\end{Resultado}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 11 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 12 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Subscritos e expoentes}
+	\begin{center}
+		\let\tt\ttfamily
+		\begin{tabular}{cc}
+			$x^{2}$ & \tt\$x\string^\{2\}\$ \\
+			$x^{y^{2}}$ & \tt\$x\string^\{y\string^\{2\}\}\$ \\
+			$x_{1}^{2}$ & \tt\$x\string_\{1\}\string^\{2\}\$\\
+		\end{tabular}
+	\end{center}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 12 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 13 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Frações - 0}
+	\begin{Codigo}{}
+		\bs\ls\ a/b \bs\rs
+	\end{Codigo}
+
+    \pause
+	Produz: 
+
+	\begin{Resultado}{}
+		\[a/b\]
+	\end{Resultado}
+	
+	\pause
+	Enquanto que:
+
+	\begin{Codigo}{}
+		\bs\ls \string\frac\{a\}\{b\} \bs\rs
+	\end{Codigo}
+	
+	\pause
+	Produz:
+
+	\begin{Resultado}{}
+		\[\frac{a}{b}\]
+	\end{Resultado}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 13 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 14 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Frações - 1}
+	\begin{itemize}
+	    \pause
+		\item \texttt{/} é preferível quando existe pouca coisa na fração e o espaço é pequeno;
+		    \pause
+			\begin{Codigo}{Exemplo}
+				\$2\string^\{1/2\}\$ e \$2\string^\string\frac\{1\}\{x+1\}\$.
+			\end{Codigo}
+
+            \pause
+			Produz:
+
+			\begin{Resultado}{}
+				\[2^{1/2} \text{\quad e\quad} 2^\frac{1}{x+1}\]
+			\end{Resultado}
+
+		\medskip
+
+        \pause
+		\item Muitas vezes \texttt{\string\frac} parece ruim quando usado dentro de um parágrafo com \texttt{\$\dots\$};
+		\pause
+		\item Como pode ser visto a partir do exemplo, mesmo nos exponentes o comando \LCmd{frac} não produz um resultado agradável.
+	\end{itemize}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 14 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 15 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Integral}
+	\begin{Codigo}{Exemplo de integral dupla}
+		\texttt{\string\iint\string\sin\ x\string\cos\ y\string\,\string\mathrm\{d\}x\string\,\string\mathrm\{d\}y}
+	\end{Codigo}
+
+    \pause
+	Produz:
+
+	\begin{Resultado}{}
+		\[\iint \sin x\cos y\,\mathrm{d}x\,\mathrm{d}y\]
+	\end{Resultado}
+
+    \pause
+	\begin{Observacao}{Observações}
+		\begin{itemize}
+			\item \texttt{\string\iint} produz $\displaystyle\iint$ e \texttt{\string\int\string\int} produz $\displaystyle\int\int$;
+			\pause
+			\item Comandos \LCmd{iint}, \LCmd{iiint}, \LCmd{iiiint} e \LCmd{idotsint} são produzidos pelo pacote \Lsty{amsmath}. Sem esses comandos é necessário tratar os espaços entre as várias partes da integral.
+		\end{itemize}
+	\end{Observacao}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 15 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 16 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Somatório}
+	\begin{Codigo}{Exemplo de somatório}
+		\texttt{\string\sum\string_\{i=1\}\string^\string\infty\ a\string_i}
+	\end{Codigo}
+
+	\bigskip
+
+    \pause
+	Produz:
+	
+	\begin{Resultado}{}
+		$\sum_{i=1}^\infty a_i$
+	\end{Resultado}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 16 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 17 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Integral definida}
+	\begin{Codigo}{Usando limites de integração}
+			\string\int\string_0\string^\string\frac\{1\}\{2\} x\string^2\string\,\string\mathrm\{d\}x
+	\end{Codigo}
+	
+	\pause
+	Produz:
+	
+	\begin{Resultado}{}
+		$\int_0^\frac{1}{2} x^2\mathrm{d}x$
+	\end{Resultado}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 17 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 18 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Matemática em linha ou destacada do parágrafo - 0}
+	Diferenças na aparência usando \texttt{\$\dots\$} ou  \texttt{\bs\ls\dots\bs\rs}; \pause Contraste:
+
+	\begin{Codigo}{Matemática em linha}
+		\$\LCmd{lim}\_\Larg{n\LCmd{to}\LCmd{infty}}\LCmd{sum}\_\Larg{i=1}\^{}n 1/i\$
+	\end{Codigo}
+	
+	\pause
+	que produz:
+	
+	\begin{Resultado}{}
+		$\lim_{n\to\infty}\sum_{i=1}^n1/i$
+	\end{Resultado}
+
+    \pause
+	com:
+	
+	\begin{Codigo}{Matemática em display (destacando)}
+		\bs\ls\ \LCmd{lim}\_\Larg{n\LCmd{to}\LCmd{infty}}			\LCmd{sum}\_\Larg{i=1}\^{}n
+		\LCmd{frac}\Larg{1}\Larg{i}\ \bs\rs
+	\end{Codigo}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 18 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 19 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Matemática em linha ou destacada do parágrafo - 1}
+    \pause
+	\begin{Resultado}{Resultado do slide anterior}
+		\[\lim_{n\to\infty}\sum_{i=1}^n\frac{1}{i}\]
+	\end{Resultado}
+	
+	\pause
+	\begin{Codigo}{Usando quantificador, conjuntos e desigualdade}
+		\LCmd{forall} x\LCmd{in}\LCmdArg{mathbb}{R}:x\^{}2\LCmd{geq} 0
+	\end{Codigo}
+
+    \pause
+	Produz:
+	
+	\begin{Resultado}{}
+		\[\forall x\in\mathbb{R}:x^2\geq 0\]
+	\end{Resultado}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 19 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 20 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Igualdades e desigualdades}
+	\begin{Codigo}{}
+		\begin{center}\let\tt\ttfamily
+			\begin{tabular}{*6c}
+				\tt= & \LCmd{neq} & \tt> & \tt< & \LCmd{leq} & \LCmd{geq} \\
+				$=$ & $\neq$ & $>$ & $<$ & $\leq$ & $\geq$
+			\end{tabular}
+		\end{center}
+	\end{Codigo}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 20 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 21 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Acentos em modo matemático}
+	\begin{Codigo}{}
+		\begin{center}\tabcolsep=4pt
+			\begin{tabular}{*4c}
+				\LCmdArg{hat}{a} & \LCmdArg{grave}{a} & \LCmdArg{bar}{a} & \LCmdArg{check}{a}  \\
+				$\hat{a}$ & $\grave{a}$ & $\bar{a}$ & $\check{a}$ \\
+				\LCmdArg{dot}{a} & \LCmdArg{vec}{a} & \LCmdArg{breve}{a} & \LCmdArg{widetilde}{abc} \\
+				$\dot{a}$ & $\vec{a}$ & $\breve{a}$ & $\widetilde{abc}$ \\
+				\LCmdArg{tilde}{a} & \LCmdArg{ddot}{a} & \LCmdArg{widehat}{abc} & \LCmdArg{acute}{a} \\
+				$\tilde{a}$ & $\ddot{a}$ & $\widehat{abc}$ & $\acute{a}$
+			\end{tabular}
+		\end{center}
+	\end{Codigo}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 21 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 22 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Fontes do modo matemático}
+	\begin{Codigo}{}
+		\begin{center}
+			\begin{tabular}{*3l}
+				Caligráfico & \LCmdArg{mathcal}{C} & $\mathcal{C}$ \\
+				Redobrado	& \LCmdArg{mathbb}{R} & $\mathbb{R}$ \\
+				Bold 		& \LCmdArg{mathbf}{B} & $\mathbf{B}$ \\
+				Roman 		& \LCmdArg{mathrm}{M} & $\mathrm{M}$
+			\end{tabular}
+		\end{center}
+	\end{Codigo}
+
+    \pause
+	\begin{Observacao}{Observações}
+		Para poder ser usado, o fonte \texttt{\string\mathbb\{\dots\}} necessita o pacote \Lsty{amssymb}.
+	\end{Observacao}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 22 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 23 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Espaçamento em modo matemático - 0}
+	\begin{Codigo}{Tipos}
+		\begin{center}
+			\begin{tabular}{ll}
+				\LCmd{,} 		& espaço pequeno \\
+				\LCmd{quad} 	& espaço grande \\
+				\LCmd{qquad} 	& espaço maior
+			\end{tabular}
+		\end{center}
+	\end{Codigo}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 23 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 24 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Espaçamento em modo matemático - 1}
+	\begin{Codigo}{Uso do \LCmd{quad}}
+		\LCmd{[}e\string^\Larg{-\LCmd{alpha} t} \LCmd{quad} x\string_1, x\string_2, x\string_3, \LCmd{ldots} \LCmd{quad} x\string_1+x\string_2+x\string_3+\LCmd{cdots}
+	\end{Codigo}
+	
+	\pause
+	Produz:
+	
+	\begin{Resultado}{}
+		\[e^{-\alpha t} \quad x_1, x_2, x_3, \dots \quad x_1+x_2+x_3+\cdots
+\]
+	\end{Resultado}
+
+    \pause
+	\begin{Codigo}{Uso do \LCmd{qquad}}
+		\LCmd{[}e\string^\Larg{-\LCmd{alpha} t} \LCmd{qquad} x\string_1, x\string_2, x\string_3, \LCmd{ldots} \LCmd{qquad} x\string_1+x\string_2+x\string_3+\LCmd{cdots}
+	\end{Codigo}
+
+    \pause
+	Produz:
+
+	\begin{Resultado}{}
+		\[e^{-\alpha t} \qquad x_1, x_2, x_3, \dots \qquad x_1+x_2+x_3+\cdots
+\]
+	\end{Resultado}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 24 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 25 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Espaçamento em modo matemático - 2}
+	\begin{Observacao}{Observações}
+		\begin{itemize}
+			\item Observe o uso de \texttt{\string\ldots} e \texttt{\string\cdots};
+			\item Esses comandos poderiam ter sido substituidos por \texttt{\string\dots} que funciona bem sempre.
+		\end{itemize}
+	\end{Observacao}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 25 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 26 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Espaçamento em modo matemático - 3}
+	Use \LCmd{,} para colocar ponto final em fórmula:
+
+	\begin{Codigo}{Uso do \LCmd{,}}
+		A simplificação desta expressão resulta em\n
+		\texttt{\LCmd{[}\LCmdArg{frac}{(x+1)(x-1)}\Larg{y-1}\LCmd{,}.\LCmd{]}}
+	\end{Codigo}
+	
+	\pause
+	que produz:
+	
+	\begin{Resultado}{}
+		A simplificação desta expressão resulta em
+			\[\frac{(x+1)(x-1)}{y-1}\, .\]
+	\end{Resultado}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 26 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 27 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Espaçamento em modo matemático - 4}
+	Use \LCmd{,} para separar os diferenciais da expressão integranda nos integrais:
+
+	\begin{Codigo}{}
+		\LCmd{[}
+		\LCmd{iint}\LCmd{exp}(x\string^2 + y\string^2)\LCmd{,}\LCmdArg{mathrm}{d}x\LCmd{,}\LCmdArg{mathrm}{d}y
+		\LCmd{]}
+	\end{Codigo}
+
+    \pause
+	Produz:
+
+	\begin{Resultado}{}
+		\[
+		\iint\exp (x^2 + y^2) \,\mathrm{d}x \,\mathrm{d}y
+		\]
+	\end{Resultado}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 27 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 28 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Raízes}
+	\begin{Codigo}{Raiz quadrada}
+		\LCmdArg{sqrt}{x+1}
+	\end{Codigo}
+
+    \pause
+	Produz:
+
+	\begin{Resultado}{}
+		\[\sqrt{x+1}\]
+	\end{Resultado}
+
+    \pause
+	e
+
+	\begin{Codigo}{Raiz $n$-ésima}
+		\LOA sqrt[3]{2}
+	\end{Codigo}
+
+    \pause
+	Produz:
+	
+	\begin{Resultado}{}
+		\[\sqrt[3]{2}\]
+	\end{Resultado}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 28 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 29 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\LCmd{overline}, \LCmd{underline}, \LCmd{overbrace} e \LCmd{underbrace}}
+	\begin{Codigo}{\LCmd{overline}}
+		\LCmdArg{overline}{a+b}
+	\end{Codigo}
+
+	Produz (Análogo para o \LCmd{underline}): 
+	
+	\begin{Resultado}{}
+		\[\overline{a+b}\]
+	\end{Resultado}
+
+    \pause
+	e
+
+	\begin{Codigo}{\LCmd{underbrace}}
+		10110\LCmdArg{underbrace}{111\LCmd{dots}1}\string_\Larg{\string\times\ 56}000
+	\end{Codigo}
+
+    \pause
+	Produz (Análogo para o \LCmd{overbrace}):
+
+	\begin{Resultado}{}
+		\[10110\underbrace{111\dots1}_{\times 56}000\]
+	\end{Resultado}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 29 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 30 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Derivada}
+	\begin{Codigo}{Derivadas}
+		y=x\string^2 \LCmd{qquad} y'=2x \LCmd{qquad} y'{}'=2
+	\end{Codigo}
+	
+	\pause
+	Produz:
+	
+	\begin{Resultado}{}
+		\[y=x^2 \qquad y'=2x \qquad y''=2\]
+	\end{Resultado}
+
+    \pause
+	\begin{Codigo}{Derivadas como frações}
+		y=x\string^2 \LCmd{qquad} \LCmdArg{frac}{\string\mathrm\{d\}y}\Larg{\string\mathrm\{d\}x}=2x \LCmd{qquad} \LCmdArg{frac}{\string\mathrm\{d\}\string^2y}\Larg{\string\mathrm\{d\}x\string^2}=2
+	\end{Codigo}
+	
+	\pause
+	Produz:
+	
+	\begin{Resultado}{}
+		\[
+		y=x^2 \qquad \frac{\mathrm{d}y}{\mathrm{d}x} =2x 	\qquad \frac{\mathrm{d}^2y}{\mathrm{d}x^2} =2
+		\]
+	\end{Resultado}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 30 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 31 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Vetores}
+	Use \LCmd{vec}, \LCmd{overrightarrow}, e \LCmd{overleftarrow}. 
+
+    \pause
+	\begin{Codigo}{Exemplo}
+		\LCmd{vec} a \qquad \LCmdArg{overrightarrow}{AB} \qquad
+		\LCmdArg{overleftarrow}{AB}
+	\end{Codigo}
+	
+	\pause
+	Produz:
+	
+	\begin{Resultado}{}
+		\[\vec a \qquad \overrightarrow{AB} \qquad \overleftarrow{AB}\]
+	\end{Resultado}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 31 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 32 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Coeficientes binomiais}
+	Use o pacote \Lsty{amsmath}.
+
+	\begin{Codigo}{}
+		\LCmdArg{binom}{n}\Larg{k} = \n
+		\null\qquad\LCmdArg{frac}{(n)(n-1)\LCmd{cdots}(n-k+1)}\Larg{(1)(2)\LCmd{cdots}(k)}
+	\end{Codigo}
+	
+	\pause
+	Produz:
+	
+	\begin{Resultado}{}
+		\[\binom{n}{k} = \frac{(n)(n-1)\cdots(n-k+1)}{(1)(2)\cdots(k)}\]
+	\end{Resultado}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 32 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 33 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Delimitadores}
+	\fontsize{10}{11}\selectfont
+
+	Usa-se \LCmd{left} e \LCmd{right} para determinar automaticamente o tamanho dos delimitadores esquerdo e direito. Usa-se \LCmd{bigl}, \LCmd{Bigl}, \LCmd{biggl}, \LCmd{Biggl} e \LCmd{bigr}, \LCmd{Bigr}, \LCmd{biggr}, \LCmd{Biggr} para fixar determinados tamanhos dos delimitadores esquerdo e direito.
+
+    \pause
+	\begin{Codigo}{Exemplo}
+		x+\LCmd{left}(\LCmdArg{frac}{1}\Larg{x+1}\LCmd{right})\string^3
+	\end{Codigo}
+
+    \pause
+	Produz:
+	
+	\begin{Resultado}{}
+		\[x+\left(\frac{1}{x+1}\right)^3\]
+	\end{Resultado}
+
+    \pause
+	\begin{Codigo}{Outro exemplo}
+		\LCmd{Bigl}((x+1)(x-1)\LCmd{Bigr})\string^2
+	\end{Codigo}
+
+    \pause
+	Produz:
+
+	\begin{Resultado}{}
+		\[\Bigl((x+1)(x-1)\Bigr)^2\]
+	\end{Resultado}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 33 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 34 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Delimitadores de tamanho determinado}
+	\begin{itemize}
+		\item Os descritores de tamanho podem ser usados com qualquer delimitador.
+
+            \pause
+			\begin{Codigo}{}
+				\LCmd{bigl}(\LCmd{Bigl}(\LCmd{biggl}(\LCmd{Biggl}(\n
+				\null\qquad\LCmd{bigr}\LCmd{\}}\LCmd{Bigr}\LCmd{\}}\LCmd{biggr}\LCmd{\}}\LCmd{Biggr}\LCmd{\}}
+			\end{Codigo}
+			
+			\pause
+			Produz:
+			
+			\begin{Resultado}{}
+				\[\big(\Big(\bigg(\Bigg(\quad\big\}\Big\}\bigg\}\Bigg\}\]
+			\end{Resultado}
+
+        \pause
+		\item As terminações  \texttt{l} (\emph{left}, esquerda) e de \texttt{r} (\emph{r}, direita) determina os espaços corretos quando o delimitador é de esquerda ou de direita.
+	\end{itemize}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 34 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 35 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\Lenv{eqnarray} e \Lenv{align}}
+	\begin{itemize}
+		\item Ambiente \Lenv{eqnarray} foi desenvolvido para mostrar listas de fórmulas como tabelas de três colunas alinhadas na coluna do meio (onde normalmente está o ``='' );
+		\pause
+		\item Ambiente \Lenv{eqnarray} está obsoleto, pois foi o primeiro ambiente desenvolvido para o \LaTeX{} e possui um erro de espaçamento;
+		\pause
+		\item Preferível usar o ambiente \Lenv{align}, carregando o pacote \Lsty{amsmath};
+		\pause
+		\item Assim como existe o ambiente \Lenv{eqnarray*}, também existe o ambiente  \Lenv{align*} nos quais  as equações não são numeradas.
+	\end{itemize}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 35 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 36 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Uso do ambiente \Lenv{align} - 0}
+	\begin{Codigo}{Primeiro exemplo}
+		\LCmdArg{begin}{align}\n
+			f(x) \& =  x\string^2 \LCmd{\bs}\n
+			f'(x) \& =  2x \LCmd{\bs}\n
+			\LCmd{int}\string_0\string^x f(y)\LCmd{,}					\LCmdArg{mathrm}{d}y \& = \LCmdArg{frac}{x\string^3}\Larg{3}
+		\LCmdArg{end}{align}
+	\end{Codigo}
+
+    \pause
+	Produz:
+	
+	\begin{Resultado}{}
+		\begin{align}
+			f(x) & = x^2 \\
+			f'(x) & = 2x \\
+			\int_0^x f(y)\,\mathrm{d}y & =  \frac{x^3}{3}
+		\end{align}
+	\end{Resultado}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 36 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 37 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Uso do ambiente \Lenv{align} - 1}
+	\begin{Codigo}{Segundo exemplo}
+		\LCmdArg{begin}{align}
+		\LCmd{sin} x \& =  x -\LCmdArg{frac}{x\string^3}\Larg{3!}+
+		\LCmdArg{frac}{x\string^5}\Larg{5!}- \LCmd{notag} \LCmd{\bs}\n
+		\&\LCmd{qquad} \LCmdArg{frac}{x\string^7}\Larg{7!}+\LCmd{cdots}
+		\LCmdArg{end}{align}
+	\end{Codigo}
+
+    \pause
+	Produz:
+
+	\begin{Resultado}{}
+		\begin{align}
+			\sin x & =  x -\frac{x^3}{3!}+
+			\frac{x^5}{5!}- \notag \\
+			&\qquad  \frac{x^7}{7!}+\cdots
+		\end{align}
+	\end{Resultado}
+	
+	\pause
+	\begin{Observacao}{Observação}
+		\texttt{\string\notag} elimina a numeração na linha.
+	\end{Observacao}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 37 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 38 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Descrevendo variáveis - 0}
+	\begin{Codigo}{Descrição das variáveis}
+		\LCmd{[}a\string^2+b\string^2=c\string^2\LCmd{]}
+		\nn
+		\LCmdArg{begin}{tabular}\Larg{lp\lb.8\string\textwidth\rb}\n
+			Onde: \& \$a\$, \$b\$ -{}- são os catetos de um triângulo retângulo\LCmd{tabularnewline}\n
+			\& \$c\$ -{}- é a hipotenusa do triângulo retângulo.
+		\LCmdArg{end}{tabular}
+	\end{Codigo}
+
+    \pause
+	Produz:
+
+	\begin{Resultado}{}
+		\[a^2+b^2=c^2\]
+
+		\begin{tabular}{lp{.8\textwidth}}
+			Onde: & $a$, $b$ -- são os catetos de um triângulo retângulo\tabularnewline
+			& $c$ -- é a hipotenusa do triângulo retângulo.
+		\end{tabular}
+	\end{Resultado}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 38 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 39 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Descrevendo variáveis - 1}
+	\begin{Codigo}{Usando \texttt{\string\parindent}}
+		\LCmd{[}a\string^2+b\string^2=c\string^2\LCmd{]}
+		\nn
+		\{\LCmdArg{settowidth}{\string\parindent}\{Onde:\string\ \}\n
+		\string\noindent\ Onde:\string\ \$a\$, \$b\$ -{}- são os catetos de um triângulo retângulo\n\n
+		\$c\$ -{}- é a hipotenusa do triângulo retângulo.\}
+	\end{Codigo}
+
+    \pause
+	Produz:
+
+	\begin{Resultado}{}
+		\[a^2+b^2=c^2\]
+		{\settowidth{\parindent}{Onde:\ }
+\noindent Onde: $a$, $b$ -- são os catetos de um triângulo retângulo
+		$c$ -- é a hipotenusa do triângulo retângulo.}
+	\end{Resultado}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 39 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 40 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Símbolos matemáticos}
+	\begin{Codigo}{Letras Gregas}
+		\begin{center}\tabcolsep=4pt
+			\begin{tabular}{*8l}
+				$\alpha$      	& \LCmd{alpha} 		&
+				$\beta$       	& \LCmd{beta} 		&
+				$\gamma$      	& \LCmd{gamma} 		&
+				$\delta$      	& \LCmd{delta} 		\\
+				$\epsilon$    	& \LCmd{epsilon} 	&
+				$\varepsilon$	& \LCmd{varepsilon}&
+				$\zeta$			& \LCmd{zeta} 		&
+				$\eta$			& \LCmd{eta} 		\\
+				$\theta$		& \LCmd{theta} 		&
+				$\vartheta$		& \LCmd{vartheta} 	&
+				$\iota$			& \LCmd{iota} 		&
+				$\kappa$		& \LCmd{kappa} 		\\
+				$\lambda$		& \LCmd{lambda} 	&
+				$\mu$			& \LCmd{mu} 		&
+				$\nu$			& \LCmd{nu} 		&
+				$\xi$			& \LCmd{xi} 		\\
+				$\pi$			& \LCmd{pi} 		&
+				$\varpi$		& \LCmd{varpi} 		&
+				$\rho$			& \LCmd{rho} 		&
+				$\varrho$		& \LCmd{varrho} 	\\
+				$\sigma$		& \LCmd{sigma} 		&
+				$\varsigma$		& \LCmd{varsigma} 	&
+				$\tau$			& \LCmd{tau} 		&
+				$\upsilon$  	& \LCmd{upsilon} 	\\
+				$\phi$			& \LCmd{phi} 		&
+				$\varphi$		& \LCmd{varphi} 	&
+				$\chi$			& \LCmd{chi} 		&
+				$\psi$			& \LCmd{psi} 		\\
+				$\omega$		& \LCmd{omega}		&
+				$\Gamma$		& \LCmd{Gamma} 		&
+				$\Delta$		& \LCmd{Delta} 		&
+				$\Theta$		& \LCmd{Theta} 		\\
+				$\Lambda$		& \LCmd{Lambda} 	&
+				$\Xi$			& \LCmd{Xi} 		&
+				$\Pi$			& \LCmd{Pi} 		&
+				$\Sigma$		& \LCmd{Sigma} 		\\
+				$\Upsilon$ 		& \LCmd{Upsilon} 	&
+				$\Phi$			& \LCmd{Phi} 		&
+				$\Psi$			& \LCmd{Psi} 		&
+				$\Omega$		& \LCmd{Omega} 		\\
+			\end{tabular}
+		\end{center}
+	\end{Codigo}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 40 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 41 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Operações binárias}
+	\fontsize{10}{11}\selectfont
+	\begin{Codigo}{Operações binárias}
+		\begin{center}\tabcolsep=3pt
+			\begin{tabular}{*8l}
+				$\pm$		& \LCmd{pm} &
+				$\mp$		& \LCmd{mp} &
+				$\times$	& \LCmd{times} &
+				$\div$		& \LCmd{div} \\
+				$\ast$		& \LCmd{ast} &
+				$\star$		& \LCmd{star} &
+				$\circ$		& \LCmd{circ} &
+				$\bullet$	& \LCmd{bullet} \\
+				$\cap$		& \LCmd{cap} &
+				$\cup$      & \LCmd{cup} &
+				$\uplus$	& \LCmd{uplus} &
+				$\sqcap$	& \LCmd{sqcap} \\
+				$\sqcup$	& \LCmd{sqcup} &
+				$\vee$		& \LCmd{vee} &
+				$\wedge$	& \LCmd{wedge} &
+				$\setminus$	& \LCmd{setminus}\\
+				$\bigtriangleup$ & \LCmd{bigtriangleup} &
+				$\cdot$		& \LCmd{cdot} &
+				$\diamond$	& \LCmd{diamond} &
+				$\wr$		& \LCmd{wr} \\
+				$\bigtriangledown$ & \LCmd{bigtriangledown} &
+				$\lhd$		& \LCmd{lhd} &
+				$\rhd$		& \LCmd{rhd} &
+				$\amalg$	& \LCmd{amalg} \\
+				$\triangleleft$ & \LCmd{triangleleft} &
+				$\bigcirc$	& \LCmd{bigcirc} &
+				$\unrhd$	& \LCmd{unrhd} &
+				$\unlhd$	& \LCmd{unlhd} \\
+				$\triangleright$ & \LCmd{triangleright} &
+				$\oplus$	& \LCmd{oplus} &
+				$\ominus$	& \LCmd{ominus} &
+				$\otimes$	& \LCmd{otimes} \\
+				$\oslash$	& \LCmd{oslash} &
+				$\odot$		& \LCmd{odot} &
+				$\dagger$ 	& \LCmd{dagger} &
+				$\ddagger$	& \LCmd{ddagger} \\
+			\end{tabular}
+		\end{center}
+	\end{Codigo}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 41 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 42 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Relações binárias}
+	\begin{Codigo}{Relações binárias}
+		\begin{center}
+			\begin{tabular}{*6l}
+				$\leq$		& \LCmd{leq} &
+				$\prec$		& \LCmd{prec} &
+				$\preceq$	& \LCmd{preceq} \\
+				$\ll$		& \LCmd{ll} &
+				$\subset$	& \LCmd{subset} &
+				$\subseteq$	& \LCmd{subseteq} \\
+				$\sqsubset$	& \LCmd{sqsubset} &
+				$\sqsubseteq$   & \LCmd{sqsubseteq} &
+				$\in$		& \LCmd{in} \\
+				$\ni$		& \LCmd{ni} &
+				$\dashv$	& \LCmd{dashv} &
+				$\equiv$	& \LCmd{equiv} \\
+				$\sim$		& \LCmd{sim} &
+				$\simeq$	& \LCmd{simeq} &
+				$\asymp$	& \LCmd{asymp} \\
+				$\approx$	& \LCmd{approx} &
+				$\cong$		& \LCmd{cong} &
+				$\neq$		& \LCmd{neq} \\
+				$\vdash$	& \LCmd{vdash} &
+				$\geq$		& \LCmd{geq} &
+				$\succ$		& \LCmd{succ} \\
+				$\succeq$	& \LCmd{succeq} &
+				$\gg$		& \LCmd{gg} &
+				$\supset$	& \LCmd{supset} \\
+				$\supseteq$	& \LCmd{supseteq} &
+				$\sqsupset$	& \LCmd{sqsupset} &
+				$\sqsupseteq$	& \LCmd{sqsupseteq}\\
+				$\doteq$	& \LCmd{doteq} &
+				$\propto$	& \LCmd{propto} &
+				$\models$	& \LCmd{models} \\
+				$\perp$		& \LCmd{perp} &
+				$\mid$		& \LCmd{mid} &
+				$\parallel$	& \LCmd{parallel}\\
+				$\bowtie$	& \LCmd{bowtie} &
+				$\Join$		& \LCmd{Join} &
+				$\smile$	& \LCmd{smile} \\
+				$\frown$	& \LCmd{frown}\\
+			\end{tabular}
+		\end{center}
+	\end{Codigo}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 42 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 43 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Setas}
+	\fontsize{10}{11}\selectfont
+	\begin{Codigo}{Setas}
+		\begin{center}\makebox[\textwidth]{\tabcolsep=3pt
+			\begin{tabular}{*4l}
+				$\leftarrow$		& \LCmd{leftarrow} &
+				$\Leftarrow$		& \LCmd{Leftarrow} \\
+				$\rightarrow$		& \LCmd{rightarrow} &
+				$\Rightarrow$		& \LCmd{Rightarrow}\\
+				$\leftrightarrow$	& \LCmd{leftrightarrow} &
+				$\Leftrightarrow$ 	& \LCmd{Leftrightarrow}\\
+				$\mapsto$		& \LCmd{mapsto} &
+				$\hookleftarrow$	& \LCmd{hookleftarrow} \\
+				$\leftharpoonup$	& \LCmd{leftharpoonup} &
+				$\Longleftrightarrow$	& \LCmd{Longleftrightarrow} \\
+				$\longmapsto$		& \LCmd{longmapsto} &
+				$\hookrightarrow$	& \LCmd{hookrightarrow} \\
+				$\rightharpoonup$	& \LCmd{rightharpoonup} &
+				$\rightharpoondown$	& \LCmd{rightharpoondown} \\
+				$\leadsto$		& \LCmd{leadsto} &
+				$\uparrow$		& \LCmd{uparrow} \\
+				$\Uparrow$		& \LCmd{Uparrow} &
+				$\downarrow$		& \LCmd{downarrow} \\
+				$\leftharpoondown$	& \LCmd{leftharpoondown} &
+				$\rightleftharpoons$	& \LCmd{rightleftharpoons} \\
+				$\longleftarrow$	& \LCmd{longleftarrow} &
+				$\Longleftarrow$	& \LCmd{Longleftarrow} \\
+				$\longrightarrow$	& \LCmd{longrightarrow} &
+				$\Longrightarrow$       & \LCmd{Longrightarrow} \\
+				$\longleftrightarrow$	& \LCmd{longleftrightarrow} &
+				$\Downarrow$		& \LCmd{Downarrow}\\
+				$\updownarrow$		& \LCmd{updownarrow} &
+				$\Updownarrow$		& \LCmd{Updownarrow} \\
+				$\nearrow$		& \LCmd{nearrow} &
+				$\searrow$		& \LCmd{searrow} \\
+				$\swarrow$		& \LCmd{swarrow} &
+				$\nwarrow$		& \LCmd{nwarrow} \\
+			\end{tabular}}
+		\end{center}
+	\end{Codigo}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 43 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 44 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Micelânea}
+	\begin{Codigo}{Micelânea}
+		\begin{center}\tabcolsep=2pt
+			\begin{tabular}{*8l}
+				$\aleph$		& \LCmd{aleph} &
+				$\hbar$			& \LCmd{hbar} &
+				$\imath$		& \LCmd{imath} &
+				$\jmath$		& \LCmd{jmath} \\
+				$\ell$			& \LCmd{ell} &
+				$\wp$			& \LCmd{wp} &
+				$\Re$			& \LCmd{Re} &
+				$\Im$			& \LCmd{Im} \\
+				$\mho$			& \LCmd{mho} &
+				$\angle$		& \LCmd{angle} &
+				$\forall$		& \LCmd{forall} &
+				$\exists$		& \LCmd{exists} \\
+				$\neg$			& \LCmd{neg} &
+				$\flat$			& \LCmd{flat} &
+				$\natural$		& \LCmd{natural} &
+				$\sharp$		& \LCmd{sharp} \\
+				$\backslash$	& \LCmd{backslash} &
+				$\partial$		& \LCmd{partial} &
+				$\prime$		& \LCmd{prime} &
+				$\emptyset$		& \LCmd{emptyset} \\
+				$\nabla$		& \LCmd{nabla} &
+				$\surd$			& \LCmd{surd} &
+				$\top$			& \LCmd{top} &
+				$\bot$			& \LCmd{bot} \\
+				$\|$			& \LCmd{|} &
+				$\Box$			& \LCmd{Box} &
+				$\Diamond$		& \LCmd{Diamond} &
+				$\triangle$		& \LCmd{triangle} \\
+				$\spadesuit$	& \LCmd{spadesuit} &
+				$\clubsuit$		& \LCmd{clubsuit} &
+				$\diamondsuit$	& \LCmd{diamondsuit} &
+				$\heartsuit$	& \LCmd{heartsuit} \\
+				$\infty$		& \LCmd{infty} \\
+			\end{tabular}
+		\end{center}
+	\end{Codigo}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 44 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 45 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Símbolos de tamanho variável}
+	\begin{Codigo}{Símbolos de tamanho variável}
+		\begin{center}
+			\begin{tabular}{*4l}
+				$\sum$		& \LCmd{sum} &
+				$\prod$		& \LCmd{prod} \\
+				$\coprod$	& \LCmd{coprod} &
+				$\int$		& \LCmd{int} \\
+				$\oint$		& \LCmd{oint} &
+				$\bigcap$	& \LCmd{bigcap} \\
+				$\bigcup$	& \LCmd{bigcup} &
+				$\bigsqcup$	& \LCmd{bigsqcup} \\
+				$\bigvee$	& \LCmd{bigvee} &
+				$\bigwedge$	& \LCmd{bigwedge} \\
+				$\bigodot$	& \LCmd{bigodot} &
+				$\bigotimes$	& \LCmd{bigotimes} \\
+				$\bigoplus$	& \LCmd{bigoplus} &
+				$\biguplus$	& \LCmd{biguplus} \\
+			\end{tabular}
+		\end{center}
+	\end{Codigo}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 45 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 46 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Funções matemáticas}
+	\begin{Codigo}{Funções matemáticas}
+		\LCmd{arccos} \LCmd{arcsin} \LCmd{arctan} \LCmd{arg} \LCmd{cos}
+		\LCmd{cosh} \LCmd{cot} \LCmd{coth} \LCmd{csc} \LCmd{deg} \LCmd{det}
+		\LCmd{dim} \LCmd{exp} \LCmd{gcd} \LCmd{hom} \LCmd{inf} \LCmd{ker} \LCmd{lg}
+		\LCmd{lim} \LCmd{liminf} \LCmd{limsup} \LCmd{ln} \LCmd{log} \LCmd{max}
+		\LCmd{min} \LCmd{Pr} \LCmd{sec} \LCmd{sin} \LCmd{sinh} \LCmd{sup} \LCmd{tan}
+		\LCmd{tanh}
+	\end{Codigo}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 46 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 47 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Arrays}
+	\fontsize{10}{11}\selectfont
+
+	O ambiente \Lenv{array} permite descrever material matemático em formato de matriz, com linhas e  colunas.
+
+    \pause
+	\begin{Codigo}{Exemplo}
+		\LCmdArg{begin}{array}\Larg{clcr}\n
+			a+b+c \& uv    \& x-y \& 27  \LCmd{\bs}\n
+			a+b   \& u+v   \& z   \& 134 \LCmd{\bs}\n
+			a     \& 3u+vw \& xyz \& 2,978 \LCmd{\bs}\n
+		\LCmdArg{end}{array}
+	\end{Codigo}
+	
+	\pause
+	Produz:
+	
+	\begin{Resultado}{}
+		\[
+		\begin{array}{clcr}
+			a+b+c & uv    & x-y & 27  \\
+			a+b   & u+v   & z   & 134 \\
+			a     & 3u+vw & xyz & 2{,}978 \\
+		\end{array}
+		\]
+	\end{Resultado}
+
+    \pause
+	\begin{Observacao}{Observação}
+		Os descritores de colunas \texttt{clcr} são somente para exemplificar; normalmente as colunas das matrizes tem seu conteúdo centrado.
+	\end{Observacao}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 47 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 48 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Matrizes delimitadas}
+	Matrizes podem ser obtidas usando-se delimitadores (``\lb'', ``\ls'', ``(''). Para indicar se o delimitador é o esquerdo ou o direito anteceder o delimitador por \LCmd{left} ou \LCmd{right}.
+
+    \pause
+	\begin{Codigo}{Exemplo}
+		\LCmd{[} \LCmd{left}\ls\ 
+		\LCmdArg{begin}{array}\Larg{*4c}\n
+			a+b+c \& uv    \& x-y \& 27  \LCmd{\bs}\n
+			a+b   \& u+v   \& z   \& 134 \LCmd{\bs}\n
+			a     \& 3u+vw \& xyz \& 2,978 \LCmd{\bs}\n
+		\LCmdArg{end}{array}
+		\LCmd{right}\rs\ \LCmd{]}
+	\end{Codigo}
+
+    \pause
+	Produz:
+	
+	\begin{Resultado}{}
+		\[ \left [
+		\begin{array}{*4c}
+			a+b+c & uv    & x-y & 27  \\
+			a+b   & u+v   & z   & 134 \\
+			a     & 3u+vw & xyz & 2{,}978 \\
+		\end{array}
+		\right ] \]
+	\end{Resultado}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 48 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 49 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Matrizes}
+	Mais um exemplo:
+	\pause
+	\begin{Codigo}{Usando ``('' como delimitador}
+		\LCmd{[} \LCmd{left}(
+		\LCmdArg{begin}{array}\Larg{*3c}\n
+			a\string_\{11\} \& a\string_\{12\} \& \LCmd{dots} \LCmd{\bs}\n
+			a\string_\{21\} \& a\string_\{22\} \& \LCmd{dots} \LCmd{\bs}\n
+			\LCmd{vdots}  \& \LCmd{vdots}  \& \LCmd{ddots}          \n
+		\LCmdArg{end}{array} \LCmd{right}) \LCmd{]}
+	\end{Codigo}
+
+    \pause
+	Produz:
+
+	\begin{Resultado}{}
+		\[ \left (
+		\begin{array}{ccc}
+			a_{11} & a_{12} & \ldots \\
+			a_{21} & a_{22} & \ldots \\
+			\vdots & \vdots & \ddots
+		\end{array} \right ) \]
+	\end{Resultado}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 49 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 50 %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Delimitador vazio}
+	\begin{itemize}
+		\item O delimitador vazio produz-se com um ponto: \LCmd{right.}
+		\pause
+		\item Serve para mostrar opções usando chaves
+		    \pause
+
+			\begin{Codigo}{Exemplo}
+				f(x)=\LCmd{left}\LCmd{\lb}\n
+				\LCmdArg{begin}{array}\Larg{ll}\n
+					0 \& x\LCmd{leq} 0 \LCmd{\bs}\n
+					x\string^2 \& x>0\n
+				\LCmdArg{end}{array}\n\LCmd{right}.
+			\end{Codigo}
+
+            \pause
+			Produz:
+
+			\begin{Resultado}{}
+				\[
+				f(x)=\left\{
+				\begin{array}{ll}
+					0 & x\leq 0 \\
+					x^2 & x>0
+				\end{array}\right.
+				\]
+			\end{Resultado}
+
+        \pause
+		\item O pacote \Lsty{amsmath} oferece o ambiente \Lenv{cases} que permite obter maIs diretamente o mesmo resultado.
+	\end{itemize}
+\end{frame}
+%%%%%%%%%%% SLIDE 50 %%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% FIM AULA 03 %%%%%%%%%%%%%%%%%%%%%%

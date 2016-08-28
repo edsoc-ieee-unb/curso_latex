@@ -1,0 +1,738 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%% AULA 01 %%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%% FINALIDADE %%%%%%%%%%%%%%%%%%%%%%%%%%
+%			Tratar da estrutura dos comandos em LaTeX   	%
+%			e TeX, apontando os principais recursos para	%
+%			diagramação de documentos, além de demonstrar	%
+%			comandos sobre formatação geral de documentos	%
+%%%%%%%%%%%%%%%%%%%%%%% FIM FINALIDADE %%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 10 %%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Os comandos do \LaTeX}
+	\begin{itemize}
+		\item Os comandos são necessários para que \LaTeX\ possa formatar o texto (\LaTeX\ não é tão inteligente como um designer/tipógrafo humano);
+		\pause
+		\item Os comandos \TeX\ normalmente são antecedidos de ``\texttt{\textbackslash}'' (por exemplo, para obter \LaTeX\ deve-se digitar \LCmd{LaTeX} e para obter ``\textbackslash'' deve-se digitar \texttt{\$}\LCmd{backslash}\texttt{\$} ou \LCmd{textbackslash});
+		\pause
+		\item A linguagem \TeX\ segue as regras/ideias de linguagens de programação (declarações e corpo do programa; ligação de bibliotecas; regras de escopo; etc.);
+	\end{itemize}
+	
+    \begin{Observacao}{Observação}
+	    Maiúsculas $\neq$ minúsculas.
+    \end{Observacao}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 10 %%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 11 %%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile=singleslide]{Compilando, visualizando e imprimindo}
+	Comandos para o Terminal do Linux:
+	\begin{itemize}
+		\item Compilação: \verb'$ pdflatex teste.tex' (para compilar, por exemplo, o arquivo \verb'teste.tex');
+		\pause
+		\item *Visualização: \verb'$ xdg-open teste.pdf' (o arquivo é recarregado automaticamente a cada modificação). Em alguns programas o resultado em .PDF aparece direitamente numa segunda janela;
+		\pause
+		\item Convertendo para html: \verb'$ latex2html teste.tex' (necessita instalar o comando);
+		\pause
+		\item Imprimindo: \verb'$ dvips teste.dvi' ou \verb'$ lpr teste.ps'.
+	\end{itemize}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 11 %%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 12 %%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Estrutura e comandos \LaTeX}
+	\begin{Codigo}{Estrutura geral}
+		\LCmdOptArg{documentclass}{opcionais}{classe}\n
+			~declarações~\dots\n
+		\LCmdArg{begin}{document}\n
+			~documento~\dots\n
+		\LCmdArg{end}{document}
+	\end{Codigo}
+
+\medskip
+
+	\begin{Codigo}{Para trabalhar com arquivos grandes}
+		\LCmdArg{include}{nomearquivo}
+			\% inclui comandos de um arquivo\n \% gera nova página antes\nn
+		\LCmdArg{input}{nomearquivo} 
+			\% inclui comandos de um arquivo\n \% não gera nova página
+	\end{Codigo}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 12 %%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 13 %%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Estrutura dos comandos}
+	\begin{itemize}
+		\item Comandos \LaTeX{} são normalmente precedidos por \texttt{\textbackslash} e seguidos de parâmetros opcionais (delimitados por ``\texttt{[}`` e ``\texttt{]}'') e/ou parâmetros obrigatórios (delimitados por ``\texttt{\lb}'' e ``\texttt{\rb}'');
+		\pause
+		\begin{Codigo}{Exemplos}
+			\LCmd{TeX}\n
+			\LCmd{LaTeX}\n
+			\LCmdArg{documentclass}{book}\n
+			\LCmdOptArg{documentclass}{12pt}{article}\n
+			\LCmdArg{begin}{document}
+		\end{Codigo}
+\bigskip
+		\pause
+		\item Uma excessão a esta regra é ``\texttt{\$}'' que delimita o ambiente matemático. Exemplo: \texttt{\$3+2\LCmdArg{sqrt}{2}\$}, que produz $3+2\sqrt{2}$.
+	\end{itemize}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 13 %%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 14 %%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Espaços após um comando \TeX}
+	Espaços após um comando serão consumidos até encontrar um caracter diferente de branco, resultando que
+	\pause
+		\begin{Codigo}{}
+			\LCmd{TeX} é legal!
+		\end{Codigo}
+		
+	\pause
+	Produz:
+	
+		\begin{Resultado}{}
+			\TeX é legal!
+		\end{Resultado}
+	\pause
+	Para evitar isto, use \texttt{\textbackslash\textvisiblespace}\footnote{O símbolo \texttt{\textvisiblespace}  serve para representar o espaço no texto fonte.} ou \texttt{\{\}}, que interrompe o consumo de espaços em branco, ou \texttt{\textasciitilde} (espaço em branco indivisível):
+
+	\pause
+	\begin{Codigo}{}
+		\LCmd{TeX}\textbackslash\textvisiblespace é legal!\n
+		ou\n
+		\LCmd{TeX}\{\}\textvisiblespace é legal!\n
+		ou\n
+		\LCmd{TeX}\textasciitilde é legal!
+	\end{Codigo}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 14 %%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 15 %%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Sobre espaçamento}\fontsize{10}{12}\selectfont
+	\begin{itemize}
+		\item Para produzir espaço no texto pode-se usar ``\LCmd{\textvisiblespace}'', que representa o espaço simples;
+		\pause
+		\item Para produzir espaço negativo: \texttt{\string\!};
+		\pause
+		\item ``\texttt{\textasciitilde}'' produz um espaço que não pode ser dividido em uma quebra de linha; por exemplo: \texttt{fone:\ (61)\textasciitilde5551234};
+		\pause
+		\item \TeX\ assume que sentenças terminam com ``.'', introduzindo um espaço adicional ao final da frase. O comando \LCmd{frenchspacing} desabilita este espaço adicional;
+		\pause
+		\item Para obter espaço vertical: \LCmdArg{vspace}{espaço} (não permite obter espaço no início de uma página) e \LCmdArg{vspace*}{espaço} (conserva o espaço no início de uma página);
+		\pause
+		\item \LCmdArg{hspace}{espaço} permite obter espaço horizontal dentro de uma linha;
+		\pause
+		\item Pode-se usar as dimensões em pontos (pt), polegadas (in), milímetros (mm), centímetros (cm) etc.
+	\end{itemize}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 15 %%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE EXTRA %%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Conversão de medidas}
+    \tiny
+    \begin{center}\begin{tabular} % Tabela da NASA, gerada automaticamente pelo LaTeX
+      {>{\def\colunit{pt}}l<{\convertto{\rowunit}{1\colunit}}
+       >{\def\colunit{mm}}l<{\convertto{\rowunit}{1\colunit}}
+       >{\def\colunit{cm}}l<{\convertto{\rowunit}{1\colunit}}
+       >{\def\colunit{ex}}l<{\convertto{\rowunit}{1\colunit}}
+       >{\def\colunit{bp}}l<{\convertto{\rowunit}{1\colunit}}
+       >{\def\colunit{pc}}l<{\convertto{\rowunit}{1\colunit}}
+       >{\def\colunit{in}}l<{\convertto{\rowunit}{1\colunit}}
+       >{\bfseries}l}
+       \hline
+    \multicolumn{1}{l}{\bfseries 1pt} & \multicolumn{1}{l}{\bfseries 1mm} & \multicolumn{1}{l}{\bfseries 1cm} & \multicolumn{1}{l}{\bfseries 1ex} & \multicolumn{1}{l}{\bfseries 1bp} & \multicolumn{1}{l}{\bfseries 1pc} & \multicolumn{1}{l}{\bfseries 1in} & \\
+    \gdef\rowunit{pt} & & & & & & & \rowunit\\
+    \gdef\rowunit{mm} & & & & & & & \rowunit\\
+    \gdef\rowunit{cm} & & & & & & & \rowunit\\
+    \gdef\rowunit{ex} & & & & & & & \rowunit\\
+    \gdef\rowunit{bp} & & & & & & & \rowunit\\
+    \gdef\rowunit{pc} & & & & & & & \rowunit\\
+    \gdef\rowunit{in} & & & & & & & \rowunit\\
+    \hline
+    \end{tabular}\end{center}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE EXTRA %%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 16 %%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Delimitação de parágrafos}
+	Uma ou mais linhas em branco delimita os parágrafos:
+	\pause
+	\begin{Codigo}{Exemplo}
+		Este é o\textvisiblespace\textvisiblespace\textvisiblespace\textvisiblespace primeiro \n parágrafo.\n
+
+		E este é o segundo!
+	\end{Codigo}
+
+	\pause
+	Produz:
+	\begin{Resultado}{}
+		Este é o         primeiro
+		parágrafo.
+
+		E este é o segundo!
+	\end{Resultado}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 16 %%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 17 %%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Comentários no arquivo fonte}
+	Comentários em \TeX\ são obtidos usando-se \texttt{\%}.
+	\pause
+	Exemplo:
+	\begin{Codigo}{Arquivo fonte com comentários}
+		Este é um exemplo\n
+		\% comentários são considerados\n
+		\% espaços em branco\n
+		de uso de comentários. \% fim do exemplo
+	\end{Codigo}
+
+	\pause
+	Produz:
+	\begin{Resultado}{}
+		Este é um exemplo
+		% comentários são considerados
+		% espaços em branco
+		de uso de comentários. % fim do exemplo
+	\end{Resultado}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 17 %%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 18 %%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Classes disponíveis}
+	\begin{itemize}
+		\item Principais classes disponíveis:
+		\pause
+		\begin{description}
+			\item [\Lcls{article}] Artigos curtos;
+			\pause			
+			\item [\Lcls{report}] Artigos mais longos, monografias, relatórios;
+			\pause
+			\item [\Lcls{book}] Livros;
+		\end{description}
+
+\medskip
+
+		\pause
+		\item Principais opções: 
+
+\medskip
+
+		\begin{itemize}
+			\pause
+			\item \Lopt{11pt} -- fonte de 11 pontos;
+			\pause
+			\item \Lopt{12pt} -- fonte de 12 pontos;
+			\pause
+			\item \Lopt{twoside} -- imprime em ambos os lados da página;
+			\pause
+			\item \Lopt{twocolumn} -- produz saída em duas colunas.
+		\end{itemize}
+
+\medskip
+		\pause
+		\item Lembre-se: \LCmdOptArg{documentclass}{opções}{classe}
+	\end{itemize}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 18 %%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 19 %%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Estilos de página}
+	\begin{Codigo}{}
+		\LCmdArg{pagestyle}{estilo}\n
+		ou\n
+		\LCmdArg{thispagestyle}{estilo}
+	\end{Codigo}
+
+	\pause
+	Estilos disponíveis:
+
+	\begin{description}
+		\item [plain] número de página centralizado no rodapé;
+		\pause
+		\item [headings] capítulo corrente e número de página no cabeçalho;
+		\pause
+		\item [empty] cabeçalho e rodapé vazios;
+	\end{description}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 19 %%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 20 %%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Ambientes}
+	O \LaTeX{} trabalha com \emph{ambientes}; o escopo de um ambiente é definido pelos comandos \LCmdArg{begin}{\dots} e \LCmdArg{end}{\dots}. \pause Exemplos:
+
+	\begin{Codigo}{}
+		\LCmdArg{begin}{document}
+		...
+		\LCmdArg{end}{document}
+	\end{Codigo}
+
+	\pause e
+
+	\begin{Codigo}{}
+		\LCmdArg{begin}{center}
+		...
+		\LCmdArg{end}{center}
+	\end{Codigo}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 20 %%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 21 %%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Exemplo de um arquivo .TEX simples}
+	\begin{Codigo}{Exemplo de arquivo .TEX}
+		\LCmdOptArg{documentclass}{12pt}{article}\n
+		\LCmdArg{begin}{document}\n
+			Oi, mundo!\n
+			Eu sou \LCmd{LaTeX}!\n
+		\LCmdArg{end}{document}
+	\end{Codigo}
+
+\pause
+que produz na saída:
+
+	\begin{Resultado}{}
+		Oi, mundo!\n
+		Eu sou \LaTeX!
+	\end{Resultado}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 21 %%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 22 %%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Usando pacotes}
+	\begin{itemize}
+		\pause
+		\item Amplia as funcionalidades do \LaTeX;
+		\pause
+		\item Modularidade;
+		\pause
+		\begin{Codigo}{Exemplo}
+			\LCmdArg{documentclass}{article}\n
+			\LOA usepackage[brazilian]{babel}\n
+			\LOA usepackage[latin1]{inputenc}\n
+			\LOA usepackage[T1]{fontenc}\n
+			\LCmdArg{usepackage}{lmodern}\n
+			\LCmdArg{usepackage}{graphicx}\n
+			\LCmdArg{usepackage}{amsmath,amssymb}\n
+			\LCmdArg{usepackage}{indentfirst}\n
+			\LCmdArg{usepackage}{url}\n
+			\LCmdArg{begin}{document}\n
+			\dots\n
+			\LCmdArg{end}{document}
+		\end{Codigo}
+	\end{itemize}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 22 %%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 23 %%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Usando pacotes}\fontsize{10}{11}\selectfont
+	\begin{description}
+		\pause
+		\item [babel] determina a língua usada no texto (\Lopt{brazilian}  é o português com as variantes brasileiras);
+		\pause
+		\item [inputenc] determina a codificação usada (use  \Lopt{latin1} no Linux, \Lopt{ansinew} no Windows e \Lopt{utf8} para a codificação universal UNICODE);
+		\pause
+		\item [fontenc] determina a codificação das fontes usados na saída; para o português é importante usar a codificação \Lopt{T1};
+		\pause
+		\item [lmodern] escolhe uma fonte vetorial com a codificação \Lopt{T1} (melhora a qualidade das fontes no PDF);
+		\pause
+		\item [graphicx] permite incorporar imagens no texto (formatos PDF, JPG, PNG, MPS e EPS);
+		\pause
+		\item [amsmath e amssymb] fontes e símbolos  matemáticos adicionais da AMS;
+		\pause
+		\item [indentfirst] indentação em início do primeiro parágrafo de seção;
+		\pause
+		\item [url] permite colocar urls no texto usando o comando \LCmdArg{url}{http://\dots}.
+	\end{description}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 23 %%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 24 %%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Definindo divisões do texto}
+	\LaTeX\ gera automaticamente a numeração das seções, existindo os seguintes comandos para a sua numeração:
+	\pause
+	\begin{Resultado}{Hierarquia}
+		\begin{enumerate}
+			\item \LCmd{part}
+			\item \LCmd{chapter}
+			\item \LCmd{section}
+			\item \LCmd{subsection}
+			\item \LCmd{subsubsection}
+			\item \LCmd{paragraph}
+			\item \LCmd{subparagraph}
+		\end{enumerate}
+
+	\end{Resultado}
+
+	\pause
+	\begin{Observacao}{}
+		A classe \Lcls{article} não permite o comando \LCmd{chapter}.
+	\end{Observacao}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 24 %%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 25 %%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Divisões do texto}
+	\begin{Codigo}{Exemplo}
+		\LCmdArg{documentclass}{article}\n
+		\LOA usepackage[brazilian]{babel} \LOA usepackage[utf8]{inputenc}\n
+		\LOA usepackage[T1]{fontenc} \LCmdArg{usepackage}{lmodern}\n
+		\LCmdArg{begin}{document}\n
+		\LCmdArg{section}{Introdução}\n
+			bla, bla, bla\n
+		\LCmdArg{section}{Usando o \LCmd{LaTeX}}\n
+		\LCmdArg{subsection}{Uso Básico}\n
+			bla, bla, bla\n
+		\LCmdArg{subsection}{Uso Avançado}\n
+		\LCmdArg{section}{Conclusão}\n
+			bla, bla, bla\n
+		\LCmdArg{end}{document}
+	\end{Codigo}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 25 %%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 26 %%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Símbolos especiais}
+	Os sete seguintes símbolos especiais podem ser facilmente obtidos pelos seguintes comandos:
+
+	\pause
+	\begin{center}
+		\begin{tabular}{r*6c}
+			\$ &\& &\% &\# &\_ &\{ &\} \\
+			\LCmd{\$} &\LCmd{\&} &\LCmd{\%} &\LCmd{\#} &\LCmd{\textunderscore} &\LCmd{\lb} &\LCmd{\rb}
+		\end{tabular}
+	\end{center}
+
+		\pause
+		Esses símbolos são especiais porque são usados em comandos na sintaxe de \LaTeX{} e não podem ser obtidos direitamente.
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 26 %%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 27 %%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]
+	\frametitle{Acentos e cedilha no texto}
+	\begin{center}\let\tt\ttfamily
+		\begin{tabular}{*7c}
+			ò & ó & ô & ö & õ & ç & Ç \\
+			\LCmdArg{`}{o} &\LCmdArg{'}{o} &\LCmdArg{\textasciicircum}{o} &\LCmdArg{\string"}{o} &						\LCmdArg{\textasciitilde}{o} &\LCmdArg{c}{c} &\LCmdArg{c}{C}
+		\end{tabular}
+	\end{center}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 27 %%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 28 %%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Conversão automática dos acentos}
+	O pacote \Lsty{inputenc} faz internamente a conversão automática dos acentos e o usuário não tem de preocupar-se com os comandos de acentuação:
+	\pause
+	\begin{center}
+		á $\longrightarrow$ \texttt{\LCmd{'}a}
+	\end{center}
+\pause
+	No entanto, se não existirem recursos no teclado de sua máquina para acentuar, você ainda poderá acentuar seu texto usando os comandos.
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 28 %%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 29 %%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Especificação das línguas usadas no documento}
+	\begin{itemize}
+		\item O pacote \Lsty{babel} especifica as línguas usadas no documento (\Lopt{brazilian}, \Lopt{english}, etc.), definindo, entre outras coisas, as regras de hifenação (separação silábica);
+		\pause
+		\item A última língua especificada entre as opções é a língua geral do documento. \pause Exemplo:
+			\begin{Codigo}{Especificação das línguas do documento}
+				\LOA usepackage[italian, english, brazilian]{babel}
+			\end{Codigo}
+		e a língua geral do documento é o português do Brasil.
+	\end{itemize}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 29 %%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 30 %%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Seleção das línguas do documento}
+	\begin{itemize}
+		\item O documento pode ser composto somente nas línguas especificadas no pacote \Lsty{babel}; 
+		\pause
+		\item A distribuição \TeX\ Live possui suporte para quase $50$ línguas;
+		\pause
+		\item Isso implica que o \LaTeX\ muda as palavras como ``Capítulo'', por exemplo, em ``Chapter'', dependendo da língua escolhida.
+		\pause
+		\item Pode-se compor um trecho de texto em inglês, em um documento em português, com:
+		\pause
+			\begin{Codigo}{Seleção local da língua}
+				\LCmdArg{begin}{otherlanguage}\Larg{english}\n
+				English text\n
+				\LCmdArg{end}{otherlanguage}\n
+				ou\n
+				texto em português \LCmdArg{foreignlanguage}{english}\Larg{English text}
+				continuando em português \dots
+			\end{Codigo}
+	\end{itemize}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 30 %%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 31 %%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Hifenação (divisão silábica)}
+	A hifenação é feita automaticamente no \LaTeX, desde que o pacote \Lsty{babel} tenha sido carregado. No caso de ocorrer uma hifenação incorreta, a correção é feita usando-se:
+	\pause
+	\begin{Codigo}{Hifenação irregular}
+		\LCmdArg{hyphenation}{PYTHON com-pu-ta-dor} \% (usado na área\n \% de declarações/correção global)\nn
+		com\LCmd{-}pu\LCmd{-}ta\LCmd{-}ção \% (usado no corpo do texto/local)
+	\end{Codigo}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 31 %%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 32 %%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Produzindo texto}
+	\begin{itemize}
+		\item Aspas: Não use \texttt{\string"\dots\string"}; use \texttt{`{}`\dots'{}'} que produz ``\dots'';
+		\pause
+		\item Apóstrofes: \texttt{d'alembertiano} produz d'alembertiano;
+		\pause
+		\item Hífens:
+			\begin{center}\let\tt\ttfamily
+				\begin{tabular}{ll}
+					\tt madeira-branca & madeira-branca \\
+					\pause					
+					\tt linhas 117-{}-138 & linhas 117--138 \\
+					\pause
+					\tt verdadeiro-{}-{}-ou falso? & verdadeiro---ou falso? \\
+					\pause
+					\tt \$-3.2\$ & $-3.2$
+				\end{tabular}
+			\end{center}
+	\end{itemize}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 32 %%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 33 %%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Reticências}
+	\begin{itemize}
+		\item Para exprimir uma reticência no texto, usa-se \LCmd{dots};
+		\pause
+		\item Note a diferença entre \texttt{...} que produz ... e \texttt{\string\dots} que produz \dots;
+		\pause
+		\item Três pontinhos não são adequados pois são interpretados como três sentenças vazias;
+		\pause
+		\item Na matemática existem várias reticências; na linha da base, no meio da linha, e vertical e diagonal nas matrizes:
+		\pause
+			\begin{center}
+				\begin{tabular}{ll}
+					\ldots 		& \LCmd{ldots} \\
+					\pause
+					\vdots 		& \LCmd{vdots} \\
+					\pause
+					$\ddots$ 	& \texttt{\$\string\ddots\$}\\
+					\pause
+					$a,\dots,z$	& \texttt{\$a, \string\ldots, z\$} ou \texttt{\$a, \string\dots, z\$} \\
+					\pause
+					$a+\dots+ z$	& \texttt{\$a+ \string\cdots+ z\$} ou \texttt{\$a+ \string\dots+ z\$} \\
+				\end{tabular}
+			\end{center}
+			\pause
+		\item \LCmd{dots} sempre produz a reticência adequada pelo contexto.
+	\end{itemize}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 33 %%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 34 %%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Ligaduras}
+	\begin{itemize}
+		\item As ligaduras mais frequentes são:
+\pause
+		\medskip
+
+		 ff fi fl ffi \ldots ao invés de f{}f f{}i f{}l f{}f{}i;
+		 \pause
+		\item Para evitar use-se um grupo vazio: \texttt{f\{\}f} que produz f{}f.
+	\end{itemize}
+
+	\bigskip
+
+	\pause
+	\begin{Resultado}{Usando a lupa}
+		{\Huge ff fi fl ffi} \ldots ao invés de {\Huge f{}f f{}i f\mbox{}l f{}f{}i}.
+	\end{Resultado}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 34 %%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 35 %%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Mudando o estilo do texto}
+	\let\tt\ttfamily
+		\begin{tabular}{lll}
+			& Comando		& Declaração \\
+			\textbf{Bold} & \tt\string\textbf\{\dots\}	& \tt\{\string\bfseries \dots\} \\
+			\pause
+			\texttt{Máquina de escrever} & \tt\string\texttt\{\dots\} & \tt\{\string\ttfamily \dots \}\\
+			\pause
+			\textit{Itálico} & \tt\string\textit\{\dots\}	& \tt\{\string\itshape\dots\} \\
+			\pause
+			\textsf{Sans serif} & \tt\string\textsf\{\dots\}& \tt\{\string\sffamily\dots\} \\
+			\pause
+			\textsc{Small Caps}	& \tt\string\textsc\{\dots\}& \tt\{\string\scshape\dots\} \\
+			\pause
+			\emph{Ênfase}  & \tt\string\emph\{\dots\} & \tt\{\string\em \dots\}
+		\end{tabular}
+
+		\pause
+		\begin{itemize}
+			\item Deve-se observar que o ênfase não usa sublinhado\footnote{O sublinhado jamais é usado em tipografia.}, e é obtido com itálico se o texto é normal e normal se o texto é itálico;
+			\pause
+			\item Os comandos produzem seu efeito somente sobre seu argumento (escopo);
+			\pause
+			\item Comandos e/ou declarações podem ser acumulados: \\ \texttt{\string\textbf\{\string					\itshape\ Itálico negro\}} produz \textbf{\itshape Itálico negro}.
+		\end{itemize}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 35 %%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 36 %%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Serifas}
+	\begin{itemize}
+		\pause
+		\item As serifas são os pequenos traços ou hastes que ocorrem nos prolongamentos das letras;
+		\pause
+		\item Servem para guiar o olhar ao longo do texto;
+		\pause
+		\item As serifas na base das letras formam uma linha que serve como referência para o olho ``trafegar'' na linha de texto (como um trem no trilho);
+		\pause
+		\item Ela aumenta a legibilidade do corpo do texto\footnote{Jamais se usa fonte \emph{sans serif} no corpo do texto.}.
+
+		\pause
+		\begin{Resultado}{Comparação}
+			\centering{\Large\string_\string_\textrm{Com serifa}\string_\string_ \hspace{2cm} \string_\string_\textsf{Sem serifa}\string_\string_}
+		\end{Resultado}
+	\end{itemize}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 36 %%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 37 %%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Mudando o tamanho dos fontes}
+	\let\tt\ttfamily
+	\begin{center}
+		\begin{tabular}{ll}
+			\pause
+			\tiny tiny & \tt\{\string\tiny\ \dots\} \\
+			\pause
+			\scriptsize scriptsize & \tt\{\string\scriptsize\ \dots\} \\
+			\pause
+			\footnotesize footnotesize & \tt\{\string\footnotesize\ \dots\} \\
+			\pause
+			\small small & \tt\{\string\small\ \dots\} \\
+			\pause
+			\normalsize normalsize &\tt\{\string\normalsize\ \dots\} \\
+			\pause
+			\large\strut large & \tt\{\string\large\ \dots\} \\
+			\pause
+			\Large\strut Large & \tt\{\string\Large\ \dots\} \\
+			\pause
+			\LARGE\strut LARGE & \tt\{\string\LARGE\ \dots\} \\
+			\pause
+			\huge\strut huge & \tt\{\string\huge\ \dots\} \\
+			\pause
+			\Huge\strut Huge & \tt\{\string\Huge\ \dots\}
+		\end{tabular}
+	\end{center}
+
+	\pause
+	\begin{Observacao}{}
+		Escopo da definição delimitado pelo grupo.
+	\end{Observacao}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 37 %%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 38 %%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Alinhamento do texto}
+	Ambientes \emph{center}, \emph{flushleft} e \emph{flushright}:
+
+	\begin{center}
+		\Huge Centrado
+	\end{center}
+	\pause
+
+	\begin{flushleft}
+		\Huge Esquerda
+	\end{flushleft}
+	\pause
+
+	\begin{flushright}
+		\Huge Direita
+	\end{flushright}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 38 %%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 39 %%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Quebra de linha, parágrafo e página}
+	\begin{itemize}
+		\item Quebra de linha: \texttt{\string\\ } ou \texttt{\string\newline};
+		\pause
+		\item Quebra de página: \texttt{\string\newpage}.
+	\end{itemize}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 39 %%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 40 %%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Notas de rodapé}
+	As notas de rodapé podem ser obtidas colocando-se, no lugar do texto onde deve ser referenciada a nota, o comando \LCmdArg{footnote}{Texto da nota}, tendo como argumento o texto da nota. 
+	
+	\pause
+	\begin{Codigo}{Exemplo}
+		42\LCmdArg{footnote}{A resposta para a vida o universo e tudo mais}
+	\end{Codigo}
+
+	\pause
+	Produz a saída:
+	\begin{Resultado}{}
+		42\footnote{A resposta para a vida o universo e tudo mais}
+	\end{Resultado}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 40 %%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 41 %%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Produzindo títulos de trabalhos}
+	\begin{Codigo}{Declarações}
+		\LCmdArg{title}{Título}\n
+		\LCmdArg{author}{Autor}\n
+		\LCmdArg{date}{Data} ou \LCmdArg{date}{}
+	\end{Codigo}
+
+\pause
+	Observações:
+	\begin{itemize}
+		\item \texttt{\string\date\{\}} omite a data do documento;
+		\pause
+		\item Omitindo-se o comando \texttt{\string\date}, é tomada a data corrente da máquina.
+	\end{itemize}
+
+\pause
+	\begin{Codigo}{Produzindo}
+		\LCmd{maketitle}
+	\end{Codigo}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 41 %%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 42 %%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Exemplo de uso de título de trabalho}
+	\begin{Codigo}{Estrutura no fonte}
+		\LCmdArg{documentclass}{book}\n
+		\LCmdArg{title}{O Guia do Mochileiro das Galáxias}\n
+		\LCmdArg{author}{Douglas Adams}\n
+		\LCmdArg{date}{}\n
+		\LCmdArg{begin}{document}\n
+		\LCmd{maketitle}\n
+
+		O Universo é tão grande que comparado a ele mesmo ele é infinitamente menor...\n
+		\LCmdArg{end}{document}
+	\end{Codigo}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 42 %%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%% SLIDE 43 %%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Resultado da composição do título}
+	\begin{Resultado}{Estrutura produzida}
+		{\centering
+		{\Large O Guia do Mochileiro das Galáxias}\\[\baselineskip]
+		{Douglas Adams}\par}
+
+		\vspace{4\baselineskip}
+
+		O Universo é tão grande que comparado a ele mesmo ele é infinitamente menor...
+	\end{Resultado}
+\end{frame}
+%%%%%%%%%%% FIM SLIDE 43 %%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% FIM AULA 01 %%%%%%%%%%%%%%%%%%%%%%%%%%

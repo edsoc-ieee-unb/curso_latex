@@ -1,0 +1,74 @@
+%%%%%%%%%%% INFORMAÇÕES BÁSICAS %%%%%%%%%%%%%%%
+% Versão: 1.2
+% Autores:  Rafael Lima
+%	        Rodrigo Guimarães
+% Finalidade: Curso de Escrita em LaTeX
+%%%%%%%%%%% FIM INFORMAÇÕES BÁSICAS %%%%%%%%%%%
+
+
+% !TEX encoding = UTF-8 Unicode
+% !TEX TS-program = pdflatex
+
+%%%%%%%%%%% INCLUSÃO DE PACOTES %%%%%%%%%%%%%%%%
+% Tipo: Apresentação de Slides
+% Opcional: svgnames - Garantir cores
+\documentclass[svgnames]{beamer}
+% Formatação no padrão EdSoc
+\usepackage{Layout/beamerEdSoc}
+\usepackage{amsmath, amssymb, array}
+
+
+
+%%%%%%%%%%% INFORMAÇÕES INICIAIS %%%%%%%%%%%%%%
+\title[O Preparador de~Documentos \LaTeX]{\LARGE{\textbf{Preparador~de~Documentos \LaTeX}}}
+  \subtitle{Introdução}
+\author{Rafael Lima \and \\
+        Rodrigo Guimarães}
+\institute{UnB/EdSoc}
+\date {\today}
+%%%%%%%%%%% FIM INFORMAÇÕES INICIAIS %%%%%%%%%%
+
+%%%%%%%%%%% DOCUMENTO %%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%%%%%%%%%%% PRÓLOGO %%%%%%%%%%%%%%%%%%%%%%%%%%%
+% NÃO EXCLUIR
+\input{Conteudos/Prologo.tex}
+
+%%%%%%%%%%% INSTALAÇÃO %%%%%%%%%%%%%%%%%%%%%%%%
+%\section{Instalação}
+%\input{Conteudos/InstalacaoLatex.tex}
+
+%%%%%%%%%%% FORMATAÇÃO GERAL P0 %%%%%%%%%%%%%%%
+%\section{Aula 1}
+\input{Conteudos/FormatacaoGeral_P0.tex}
+
+%%%%%%%%%%% FORMATAÇÃO GERAL P1 %%%%%%%%%%%%%%%
+%\section{Aula 1}
+\input{Conteudos/FormatacaoGeral_P1.tex}
+
+%%%%%%%%%%% FORMATAÇÃO GERAL P2 %%%%%%%%%%%%%%%
+%\section{Aula 2}
+\input{Conteudos/FormatacaoGeral_P2.tex}
+
+%%%%%%%%%%% MATEMÁTICOS %%%%%%%%%%%%%%%%%%%%%%%
+%\section{Aula 3}
+\input{Conteudos/AmbienteMatematico.tex}
+
+%\section{Aula 4}
+\input{Conteudos/Macros.tex}
+
+%\section{Aula 5}
+%\input{aula5_apresentacoes.tex}
+
+
+%%%%%%%%%%% CONCLUSÃO %%%%%%%%%%%%%%%%%%%%%%%%%
+% NÃO EXCLUIR
+\begin{frame}
+	\begin{center}\color{roxoEduSoc}
+		\fontsize{50}{60}\selectfont \textbf{FIM}
+	\end{center}
+\end{frame}
+
+\end{document}
+%%%%%%%%%%% FIM DOCUMENTO %%%%%%%%%%%%%%%%%%%%%
