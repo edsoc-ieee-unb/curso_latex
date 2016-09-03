@@ -6,7 +6,7 @@ Materiais referentes ao curso de LaTeX oferecido pelo Capítulo Estudatil de Edu
 ### Descrição das pastas:
  - [src](https://github.com/edusoc-unb/curso_latex): Código Fonte Apresentação
  - [exemplos](https://github.com/edusoc-unb/curso_latex): Exemplos Diversos em LaTeX
- - [Curso_de_LaTeX__EdSoC.pdf](): Apresentação
+ - [Curso_de_LaTeX__EdSoC.pdf](https://github.com/edusoc-unb/curso_latex): Apresentação
 
 ### Referências:
  - [Wikibook LaTeX (PT)](https://pt.wikibooks.org/wiki/Latex)
