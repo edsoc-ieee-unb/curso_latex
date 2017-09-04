@@ -23,4 +23,6 @@ Materiais referentes ao curso de LaTeX oferecido pelo Capítulo Estudatil de Edu
  - [Detexify](http://detexify.kirelabs.org/classify.html): Reconhecimento de simbolos em Latex por desenho
  - [Chat Online MathIM](http://mathim.com/): Inclua equações matemáticas em suas conversas online.
  - [Gerador de Tabelas Online](http://www.tablesgenerator.com/) Gere Tabelas em LaTeX, HTML ou Markdown
+ - [Bibme](http://www.bibme.org/) Gere BibTeX a partir de referências
+ - [Wikipedia BibTeX Generator](https://irl.github.io/bibwiki/) Gere BibTeX para um artigo da wikipedia
  - [Cite This For Me](http://www.citethisforme.com/) Gerador de Referências Online
